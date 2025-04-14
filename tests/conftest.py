@@ -1,19 +1,20 @@
 import logging
-import pytest
+
 import colorlog
+import pytest
 
 
 def pytest_configure():
     handler = colorlog.StreamHandler()
     handler.setFormatter(
         colorlog.ColoredFormatter(
-            "%(log_color)s%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+            '%(log_color)s%(asctime)s - %(name)s - %(levelname)s - %(message)s',
             log_colors={
-                "DEBUG": "cyan",
-                "INFO": "green",
-                "WARNING": "yellow",
-                "ERROR": "red",
-                "CRITICAL": "bold_red",
+                'DEBUG': 'cyan',
+                'INFO': 'green',
+                'WARNING': 'yellow',
+                'ERROR': 'red',
+                'CRITICAL': 'bold_red',
             },
         )
     )
@@ -21,5 +22,5 @@ def pytest_configure():
 
 
 @pytest.fixture(autouse=True)
-def setup_logging(caplog):
+def setup_logging(caplog: pytest.LogCaptureFixture):
     caplog.set_level(logging.INFO)
