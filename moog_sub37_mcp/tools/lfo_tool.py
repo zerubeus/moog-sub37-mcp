@@ -334,3 +334,14 @@ def register_lfo_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
             channel (int): MIDI channel (default is 3 if not specified).
         """
         midi.send_cc(channel, 91, value)
+
+    @mcp.tool()
+    def set_lfo1_kb_reset(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 1 Keyboard Reset.
+
+        Args:
+            value (int): Value for keyboard reset (0 = OFF, 64 = ON).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 93, value)
