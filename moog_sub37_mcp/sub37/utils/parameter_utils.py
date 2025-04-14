@@ -1,4 +1,4 @@
-from moog_sub37_mcp.digitone.models.models import (
+from moog_sub37_mcp.sub37.models.models import (
     MidiMapping,
     DigitoneParams,
     ParameterGroup,

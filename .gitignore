@@ -1,0 +1,16 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+.idea
+.vscode
+*.egg-info
+.env
+
+# Virtual environments
+.venv
+
+# Project-specific files
+.DS_Store

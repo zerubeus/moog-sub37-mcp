@@ -2,8 +2,8 @@ import pytest
 from unittest.mock import patch
 import logging
 
-from moog_sub37_mcp.digitone.services.wavetone_controller import WavetoneController
-from moog_sub37_mcp.digitone.config.config import digitone_config
+from moog_sub37_mcp.sub37.services.wavetone_controller import WavetoneController
+from moog_sub37_mcp.sub37.config.config import digitone_config
 from moog_sub37_mcp.midi.digitone_midi import DigitoneMIDI
 
 logger = logging.getLogger(__name__)

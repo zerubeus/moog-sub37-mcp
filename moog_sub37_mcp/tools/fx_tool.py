@@ -2,8 +2,8 @@
 FX tools for controlling effects parameters on the Digitone.
 """
 
-from moog_sub37_mcp.digitone.services.amp_fx_controller import FXController
-from moog_sub37_mcp.digitone.config.config import digitone_config
+from moog_sub37_mcp.sub37.services.amp_fx_controller import FXController
+from moog_sub37_mcp.sub37.config.config import digitone_config
 
 
 def register_fx_tools(mcp, midi):

@@ -1,4 +1,4 @@
-from moog_sub37_mcp.digitone.config.config import digitone_config
+from moog_sub37_mcp.sub37.config.config import digitone_config
 
 
 def test_fmtone_page1_all_params():

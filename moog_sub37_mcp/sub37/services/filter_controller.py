@@ -1,4 +1,4 @@
-from moog_sub37_mcp.digitone.services.base_synth_controller import BaseSynthController
+from moog_sub37_mcp.sub37.services.base_synth_controller import BaseSynthController
 import logging
 
 logger = logging.getLogger(__name__)

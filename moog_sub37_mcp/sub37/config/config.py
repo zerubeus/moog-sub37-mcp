@@ -1,4 +1,4 @@
-from moog_sub37_mcp.digitone.data.filters import (
+from moog_sub37_mcp.sub37.data.filters import (
     MULTI_MODE_FILTER_PARAMS,
     LOWPASS_4_FILTER_PARAMS,
     LEGACY_LP_HP_FILTER_PARAMS,
@@ -8,15 +8,15 @@ from moog_sub37_mcp.digitone.data.filters import (
     BASE_WIDTH_FILTER_PARAMS,
 )
 
-from moog_sub37_mcp.digitone.data.fm_drum import FM_DRUM_PARAMS
-from moog_sub37_mcp.digitone.data.fm_tone import FM_TONE_PARAMS
-from moog_sub37_mcp.digitone.data.swarmer import SWARMER_PARAMS
-from moog_sub37_mcp.digitone.data.wavetone import WAVETONE_PARAMS
-from moog_sub37_mcp.digitone.data.lfo import LFO1_PARAMS, LFO2_PARAMS, LFO3_PARAMS
-from moog_sub37_mcp.digitone.data.amp import AMP_PARAMS_DATA
-from moog_sub37_mcp.digitone.data.fx import FX_PARAMS_DATA
-from moog_sub37_mcp.digitone.models.models import DigitoneConfig
-from moog_sub37_mcp.digitone.utils.parameter_utils import (
+from moog_sub37_mcp.sub37.data.fm_drum import FM_DRUM_PARAMS
+from moog_sub37_mcp.sub37.data.fm_tone import FM_TONE_PARAMS
+from moog_sub37_mcp.sub37.data.swarmer import SWARMER_PARAMS
+from moog_sub37_mcp.sub37.data.wavetone import WAVETONE_PARAMS
+from moog_sub37_mcp.sub37.data.lfo import LFO1_PARAMS, LFO2_PARAMS, LFO3_PARAMS
+from moog_sub37_mcp.sub37.data.amp import AMP_PARAMS_DATA
+from moog_sub37_mcp.sub37.data.fx import FX_PARAMS_DATA
+from moog_sub37_mcp.sub37.models.models import DigitoneConfig
+from moog_sub37_mcp.sub37.utils.parameter_utils import (
     create_lfo_params,
     create_parameter_group,
     setup_filter_parameters,

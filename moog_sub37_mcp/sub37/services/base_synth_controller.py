@@ -1,4 +1,4 @@
-from moog_sub37_mcp.digitone.models.models import ParameterGroup
+from moog_sub37_mcp.sub37.models.models import ParameterGroup
 from moog_sub37_mcp.midi.digitone_midi import DigitoneMIDI
 import logging
 

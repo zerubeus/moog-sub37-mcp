@@ -2,8 +2,8 @@
 Wavetone tools for controlling oscillator parameters on the Digitone.
 """
 
-from moog_sub37_mcp.digitone.services.wavetone_controller import WavetoneController
-from moog_sub37_mcp.digitone.config.config import digitone_config
+from moog_sub37_mcp.sub37.services.wavetone_controller import WavetoneController
+from moog_sub37_mcp.sub37.config.config import digitone_config
 
 wavetone_pages = digitone_config.wavetone.pages
 

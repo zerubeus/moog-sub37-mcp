@@ -2,11 +2,11 @@
 LFO tools for controlling LFO parameters on the Digitone.
 """
 
-from moog_sub37_mcp.digitone.services.lfo_controller import (
+from moog_sub37_mcp.sub37.services.lfo_controller import (
     LFO1Controller,
     LFO2Controller,
 )
-from moog_sub37_mcp.digitone.config.config import digitone_config
+from moog_sub37_mcp.sub37.config.config import digitone_config
 
 
 def register_lfo_tools(mcp, midi):

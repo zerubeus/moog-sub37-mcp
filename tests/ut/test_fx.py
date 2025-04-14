@@ -1,85 +1,85 @@
-from moog_sub37_mcp.digitone.config.config import digitone_config
+from moog_sub37_mcp.sub37.config.config import digitone_config
 
 
-def test_swarmer_page1_all_params():
-    """Test all parameters in SWARMER page 1"""
+def test_fx_all_params():
+    """Test all parameters in the FX page"""
     expected_params = {
-        "TUNE": {
-            "midi": {"cc_msb": "40", "nrpn_lsb": "1", "nrpn_msb": "73"},
-            "max_midi_value": 127,
-            "min_midi_value": 0,
-            "max_value": 60,
-            "min_value": -60,
-            "default_value": 0,
-            "options": None,
-        },
-        "SWRM": {
-            "midi": {"cc_msb": "41", "nrpn_lsb": "1", "nrpn_msb": "74"},
-            "max_midi_value": 127,
-            "min_midi_value": 0,
-            "max_value": 120,
-            "min_value": 0,
-            "default_value": 80,
-            "options": None,
-        },
-        "DET": {
-            "midi": {"cc_msb": "42", "nrpn_lsb": "1", "nrpn_msb": "75"},
+        "BR": {
+            "midi": {"cc_msb": "78", "nrpn_lsb": "1", "nrpn_msb": "5"},
             "max_midi_value": 127,
             "min_midi_value": 0,
             "max_value": 127,
-            "min_value": 0,
-            "default_value": 70,
-            "options": None,
-        },
-        "MIX": {
-            "midi": {"cc_msb": "43", "nrpn_lsb": "1", "nrpn_msb": "76"},
-            "max_midi_value": 127,
-            "min_midi_value": 0,
-            "max_value": 127,
-            "min_value": 0,
-            "default_value": 127,
-            "options": None,
-        },
-        "M.OCT": {
-            "midi": {"cc_msb": "44", "nrpn_lsb": "1", "nrpn_msb": "77"},
-            "max_midi_value": 2,
-            "min_midi_value": 0,
-            "max_value": 2,
             "min_value": 0,
             "default_value": 0,
             "options": None,
         },
-        "MAIN": {
-            "midi": {"cc_msb": "45", "nrpn_lsb": "1", "nrpn_msb": "78"},
-            "max_midi_value": 120,
-            "min_midi_value": 0,
-            "max_value": 120,
-            "min_value": 0,
-            "default_value": 80,
-            "options": None,
-        },
-        "ANIM": {
-            "midi": {"cc_msb": "46", "nrpn_lsb": "1", "nrpn_msb": "79"},
+        "OVER": {
+            "midi": {"cc_msb": "81", "nrpn_lsb": "1", "nrpn_msb": "8"},
             "max_midi_value": 127,
             "min_midi_value": 0,
             "max_value": 127,
             "min_value": 0,
-            "default_value": 15,
+            "default_value": 0,
             "options": None,
         },
-        "N.MOD": {
-            "midi": {"cc_msb": "47", "nrpn_lsb": "1", "nrpn_msb": "80"},
+        "SRR": {
+            "midi": {"cc_msb": "79", "nrpn_lsb": "1", "nrpn_msb": "6"},
             "max_midi_value": 127,
             "min_midi_value": 0,
             "max_value": 127,
             "min_value": 0,
-            "default_value": 20,
+            "default_value": 0,
+            "options": None,
+        },
+        "SR.RT(pre/post)": {
+            "midi": {"cc_msb": "80", "nrpn_lsb": "1", "nrpn_msb": "7"},
+            "max_midi_value": 1,
+            "min_midi_value": 0,
+            "max_value": 1,
+            "min_value": 0,
+            "default_value": "pre",
+            "options": ["pre", "post"],
+        },
+        "OD.RT(pre/post)": {
+            "midi": {"cc_msb": "82", "nrpn_lsb": "1", "nrpn_msb": "9"},
+            "max_midi_value": 1,
+            "min_midi_value": 0,
+            "max_value": 1,
+            "min_value": 0,
+            "default_value": "pre",
+            "options": ["pre", "post"],
+        },
+        "DEL": {
+            "midi": {"cc_msb": "30", "nrpn_lsb": "1", "nrpn_msb": "36"},
+            "max_midi_value": 127,
+            "min_midi_value": 0,
+            "max_value": 127,
+            "min_value": 0,
+            "default_value": 0,
+            "options": None,
+        },
+        "REV": {
+            "midi": {"cc_msb": "31", "nrpn_lsb": "1", "nrpn_msb": "37"},
+            "max_midi_value": 127,
+            "min_midi_value": 0,
+            "max_value": 127,
+            "min_value": 0,
+            "default_value": 0,
+            "options": None,
+        },
+        "CHR": {
+            "midi": {"cc_msb": "29", "nrpn_lsb": "1", "nrpn_msb": "35"},
+            "max_midi_value": 127,
+            "min_midi_value": 0,
+            "max_value": 127,
+            "min_value": 0,
+            "default_value": 0,
             "options": None,
         },
     }
 
     # Get all parameters from the config
-    actual_params = digitone_config.swarmer.pages["page_1"].parameters
+    actual_params = digitone_config.fx_page.parameters
 
     # Verify all expected parameters exist
     for param_name, expected_values in expected_params.items():
