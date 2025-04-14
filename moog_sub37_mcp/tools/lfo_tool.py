@@ -323,3 +323,14 @@ def register_lfo_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
             channel (int): MIDI channel (default is 3 if not specified).
         """
         midi.send_cc(channel, 76, value)
+
+    @mcp.tool()
+    def set_mod1_dest(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the MOD 1 Destination selection.
+
+        Args:
+            value (int): Value for destination selection (0 = LF02 Rate, 18 = VCA Level, 37 = OSC1 Wave, 55 = OSC1 + OSC2 Wave, 73 = OSC2 Wave, 91 = Noise Level, 110 = EG Time/PGM).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 91, value)
