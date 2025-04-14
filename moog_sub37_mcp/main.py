@@ -1,16 +1,16 @@
 import sys
 
 from moog_sub37_mcp.mcp_server.server import mcp
-from moog_sub37_mcp.midi.midi_manager import DigitoneMIDI
+from moog_sub37_mcp.midi.midi_manager import MIDIManager
 
 
 def check_midi_connection():
     """Verify MIDI connection before starting the server"""
     try:
-        midi = DigitoneMIDI()
+        midi = MIDIManager(port_name='Moog Sub 37')
         if not midi.connected:
             print(
-                'ERROR: Could not connect to Digitone. Please check your USB connection.',
+                'ERROR: Could not connect to Moog Sub 37. Please check your USB connection.',
                 file=sys.stderr,
             )
             print(f'Available MIDI ports: {midi.list_ports()}', file=sys.stderr)

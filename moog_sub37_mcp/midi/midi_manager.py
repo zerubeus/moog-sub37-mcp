@@ -1,5 +1,5 @@
 """
- MIDI Interface
+MIDI Interface
 
 This module handles MIDI communication.
 It provides functionality for connecting to MIDI devices over USB,
@@ -17,49 +17,25 @@ logger = logging.getLogger(__name__)
 class MIDIManager:
     """Interface for MIDI communication."""
 
-    def __init__(self, port_name: Optional[str] = None):
+    def __init__(self, port_name: str):
         """
         Initialize the MIDI interface.
 
         Args:
-            port_name: Name of the MIDI port to use. If None, will attempt to auto-detect.
+            port_name: Name of the MIDI port to use.
         """
-        self.input_port = None
-        self.output_port = None
+        self.input_port: Optional[mido.ports.BaseInput] = None
+        self.output_port: Optional[mido.ports.BaseOutput] = None
         self.connected = False
 
         if port_name:
             self.connect(port_name)
-        else:
-            self.auto_connect()
 
     def list_ports(self) -> list[str]:
         """List available MIDI ports."""
         inputs = mido.get_input_names()  # type: ignore[attr-defined]
         outputs = mido.get_output_names()  # type: ignore[attr-defined]
         return list(set(inputs + outputs))  # type: ignore[arg-type]
-
-    def auto_connect(self, device_name: Optional[str] = None) -> bool:
-        """
-        Automatically connect to a device based on the provided name.
-
-        Args:
-            device_name: Name or partial name of the MIDI device to connect to. If None, will attempt to connect to the first available port.
-
-        Returns:
-            bool: True if connection successful, False otherwise.
-        """
-        ports = self.list_ports()
-        if device_name:
-            target_ports = [port for port in ports if device_name.lower() in port.lower()]
-        else:
-            target_ports = ports
-
-        if target_ports:
-            return self.connect(target_ports[0])
-        else:
-            logger.warning('No matching device found. Available ports: %s', ports)
-            return False
 
     def connect(self, port_name: str) -> bool:
         """
@@ -81,7 +57,6 @@ class MIDIManager:
                 self.input_port = mido.open_input(port_name)  # type: ignore[attr-defined]
             except (OSError, ValueError) as e:
                 logger.warning(f'Could not open input port {port_name}: {e}')
-                # Continue with just output port
 
             self.connected = True
             logger.info(f'Connected to MIDI port: {port_name}')
