@@ -53,17 +53,19 @@ include = ["moog_sub37_mcp/**/*.py", "tests/**/*.py"]
 
 [tool.ruff.lint]
 extend-select = [
-    "Q",        # Enforces consistent use of quotes (flake8-quotes)
-    "RUF100",   # Checks for unused imports (ruff)
-    "RUF018",   # Checks for assignments in assert statements, which might not execute in optimized runtimes (ruff) - https://docs.astral.sh/ruff/rules/assignment-in-assert/
-    "C90",      # Checks cyclomatic complexity to ensure code isn't too complex (mccabe)
-    "UP",       # Suggests upgrades to newer Python syntax or features (pyupgrade)
-    "I",        # Enforces sorting and organization of import statements (isort)
-    "D",        # Enforces conventions for docstrings (pydocstyle)
-    "TID251",   # Bans certain types of relative imports for consistent import style (flake8-tidy-imports)
+    "Q",      # Enforces consistent use of quotes (flake8-quotes)
+    "RUF100", # Checks for unused imports (ruff)
+    "RUF018", # Checks for assignments in assert statements, which might not execute in optimized runtimes (ruff) - https://docs.astral.sh/ruff/rules/assignment-in-assert/
+    "C90",    # Checks cyclomatic complexity to ensure code isn't too complex (mccabe)
+    "UP",     # Suggests upgrades to newer Python syntax or features (pyupgrade)
+    "I",      # Enforces sorting and organization of import statements (isort)
+    "D",      # Enforces conventions for docstrings (pydocstyle)
+    "TID251", # Bans certain types of relative imports for consistent import style (flake8-tidy-imports)
 ]
 flake8-quotes = { inline-quotes = "single", multiline-quotes = "double" }
-isort = { combine-as-imports = true, known-first-party = ["moog_sub37_mcp"] } # Sort imports
+isort = { combine-as-imports = true, known-first-party = [
+    "moog_sub37_mcp",
+] } # Sort imports
 mccabe = { max-complexity = 15 } # Check McCabe complexity
 ignore = [
     "D100", # ignore missing docstring in module
@@ -95,10 +97,7 @@ reportMissingTypeStubs = false
 reportUnnecessaryIsInstance = false
 reportUnnecessaryTypeIgnoreComment = true
 reportMissingModuleSource = false
-include = [
-    "moog_sub37_mcp",
-    "tests",
-]
+include = ["moog_sub37_mcp", "tests"]
 venvPath = ".venv"
 # see https://github.com/microsoft/pyright/issues/7771 - we don't want to error on decorated functions in tests
 # which are not otherwise used
@@ -109,9 +108,7 @@ executionEnvironments = [
 [tool.pytest.ini_options]
 testpaths = "tests"
 xfail_strict = true
-filterwarnings = [
-    "error",
-]
+filterwarnings = ["error"]
 
 [build-system]
 requires = ["hatchling", "uv-dynamic-versioning>=0.7.0"]
