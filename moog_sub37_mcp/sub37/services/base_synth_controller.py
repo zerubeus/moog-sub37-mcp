@@ -1,6 +1,7 @@
-from moog_sub37_mcp.sub37.models.models import ParameterGroup
-from moog_sub37_mcp.midi.digitone_midi import DigitoneMIDI
 import logging
+
+from moog_sub37_mcp.midi.midi_manager import DigitoneMIDI
+from moog_sub37_mcp.sub37.models.models import ParameterGroup
 
 logger = logging.getLogger(__name__)
 
@@ -43,9 +44,9 @@ class BaseSynthController:
             Exception: If sending CC fails.
         """
         if page not in self.config:
-            raise ValueError(f"Invalid page: {page}")
+            raise ValueError(f'Invalid page: {page}')
         if param_name not in self.config[page].parameters:
-            raise ValueError(f"Invalid parameter: {param_name} on {page}")
+            raise ValueError(f'Invalid parameter: {param_name} on {page}')
 
         param = self.config[page].parameters[param_name]
         cc_msb = int(param.midi.cc_msb)
@@ -53,7 +54,7 @@ class BaseSynthController:
         result = self.digitone_midi.send_cc(self.midi_channel, cc_msb, value)
 
         if result is None:
-            raise Exception(f"Failed to set {param_name} on {page}")
+            raise Exception(f'Failed to set {param_name} on {page}')
         return result
 
     def set_parameter_nrpn(self, page: str, param_name: str, value: int) -> bool:
@@ -73,15 +74,15 @@ class BaseSynthController:
             Exception: If neither NRPN nor CC succeeds.
         """
         if page not in self.config:
-            raise ValueError(f"Invalid page: {page}")
+            raise ValueError(f'Invalid page: {page}')
         if param_name not in self.config[page].parameters:
-            raise ValueError(f"Invalid parameter: {param_name} on {page}")
+            raise ValueError(f'Invalid parameter: {param_name} on {page}')
 
         param = self.config[page].parameters[param_name]
 
         # Attempt NRPN if mappings exist
         try:
-            if hasattr(param.midi, "nrpn_msb") and hasattr(param.midi, "nrpn_lsb"):
+            if hasattr(param.midi, 'nrpn_msb') and hasattr(param.midi, 'nrpn_lsb'):
                 result = self.digitone_midi.send_nrpn(
                     self.midi_channel,
                     param.midi.nrpn_msb,
@@ -89,32 +90,30 @@ class BaseSynthController:
                     value,
                 )
                 if result:
-                    logger.debug(f"Set {param_name} on {page} to {value} using NRPN")
+                    logger.debug(f'Set {param_name} on {page} to {value} using NRPN')
                     return result
-            logger.debug(
-                f"No NRPN mapping for {param_name} on {page}, or NRPN failed. Trying CC..."
-            )
+            logger.debug(f'No NRPN mapping for {param_name} on {page}, or NRPN failed. Trying CC...')
         except Exception as e:
-            logger.warning(f"NRPN failed for {param_name} on {page}: {e}. Trying CC...")
+            logger.warning(f'NRPN failed for {param_name} on {page}: {e}. Trying CC...')
 
         # Fall back to CC
         try:
             if not param.midi.cc_msb:
-                logger.error(f"No CC MSB defined for {param_name} on {page}")
+                logger.error(f'No CC MSB defined for {param_name} on {page}')
                 return False
 
             cc_msb = int(param.midi.cc_msb)
             result = self.digitone_midi.send_cc(self.midi_channel, cc_msb, value)
             if result:
-                logger.debug(f"Set {param_name} on {page} to {value} using CC")
+                logger.debug(f'Set {param_name} on {page} to {value} using CC')
                 return True
 
-            logger.error(f"Failed to set {param_name} on {page} using CC")
+            logger.error(f'Failed to set {param_name} on {page} using CC')
             return False
 
         except Exception as e:
-            logger.error(f"Failed to set {param_name} on {page}: {e}")
-            raise Exception(f"Failed to set {param_name} on {page}") from e
+            logger.error(f'Failed to set {param_name} on {page}: {e}')
+            raise Exception(f'Failed to set {param_name} on {page}') from e
 
     def set_direct_parameter_nrpn(self, param_name: str, value: int) -> bool:
         """
@@ -132,7 +131,7 @@ class BaseSynthController:
             Exception: If sending NRPN fails.
         """
         if param_name not in self.config:
-            raise ValueError(f"Invalid parameter: {param_name}")
+            raise ValueError(f'Invalid parameter: {param_name}')
 
         param = self.config[param_name]
         result = self.digitone_midi.send_nrpn(
@@ -142,7 +141,7 @@ class BaseSynthController:
             value,
         )
         if result is None:
-            raise Exception(f"Failed to set {param_name}")
+            raise Exception(f'Failed to set {param_name}')
         return result
 
     def set_direct_parameter(self, param_name: str, value: int) -> bool:
@@ -161,23 +160,23 @@ class BaseSynthController:
             Exception: If sending CC fails.
         """
         if param_name not in self.config:
-            raise ValueError(f"Invalid parameter: {param_name}")
+            raise ValueError(f'Invalid parameter: {param_name}')
 
         param = self.config[param_name]
         try:
             if not param.midi.cc_msb:
-                logger.error(f"No CC MSB defined for {param_name}")
+                logger.error(f'No CC MSB defined for {param_name}')
                 return False
 
             cc_msb = int(param.midi.cc_msb)
             result = self.digitone_midi.send_cc(self.midi_channel, cc_msb, value)
             if result:
-                logger.debug(f"Set {param_name} to {value} using CC")
+                logger.debug(f'Set {param_name} to {value} using CC')
                 return True
 
-            logger.error(f"Failed to set {param_name} using CC")
+            logger.error(f'Failed to set {param_name} using CC')
             return False
 
         except Exception as e:
-            logger.error(f"Failed to set {param_name}: {e}")
-            raise Exception(f"Failed to set {param_name}") from e
+            logger.error(f'Failed to set {param_name}: {e}')
+            raise Exception(f'Failed to set {param_name}') from e

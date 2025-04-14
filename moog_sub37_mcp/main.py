@@ -1,7 +1,7 @@
 import sys
 
 from moog_sub37_mcp.mcp_server.server import mcp
-from moog_sub37_mcp.midi.digitone_midi import DigitoneMIDI
+from moog_sub37_mcp.midi.midi_manager import DigitoneMIDI
 
 
 def check_midi_connection():
@@ -26,7 +26,7 @@ def check_midi_connection():
 
 
 def main():
-    """Entry point for the elektron-mcp command"""
+    """Entry point for the sub37-mcp command"""
     print('Starting Moog Sub37 MCP server...', file=sys.stderr)
 
     # Verify MIDI connection before starting server
