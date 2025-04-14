@@ -68,12 +68,12 @@ class MIDIManager:
 
     def disconnect(self) -> None:
         """Close all MIDI connections."""
-        if self.input_port:  # type: ignore[truthy-bool]
-            self.input_port.close()  # type: ignore[attr-defined]
+        if self.input_port:
+            self.input_port.close()
             self.input_port = None
 
-        if self.output_port:  # type: ignore[truthy-bool]
-            self.output_port.close()  # type: ignore[attr-defined]
+        if self.output_port:
+            self.output_port.close()
             self.output_port = None
 
         self.connected = False
@@ -90,7 +90,7 @@ class MIDIManager:
         Returns:
             bool: True if message sent successfully, False otherwise.
         """
-        if not self.connected or not self.output_port:  # type: ignore[truthy-bool]
+        if not self.connected or not self.output_port:
             logger.error('Not connected to any MIDI port')
             return False
 
@@ -109,4 +109,49 @@ class MIDIManager:
             return True
         except Exception as e:
             logger.error(f'Error sending CC message: {e}')
+            return False
+
+    def send_high_res_cc(self, channel: int, cc_msb: int, cc_lsb: int, value: int) -> bool:
+        """
+        Send a high-resolution Control Change (CC) message using MSB and LSB.
+
+        Args:
+            channel: MIDI channel (1-16)
+            cc_msb: Control Change number for MSB (0-127)
+            cc_lsb: Control Change number for LSB (0-127)
+            value: High-resolution value (0-16383)
+
+        Returns:
+            bool: True if message sent successfully, False otherwise.
+        """
+        if not self.connected or not self.output_port:
+            logger.error('Not connected to any MIDI port')
+            return False
+
+        # Convert 1-indexed channel to 0-indexed
+        if 1 <= channel <= 16:
+            channel = channel - 1
+        else:
+            logger.error(f'Invalid channel: {channel}. Must be between 1-16.')
+            return False
+
+        # Validate value range
+        if not 0 <= value <= 16383:
+            logger.error(f'Invalid high-res value: {value}. Must be between 0-16383.')
+            return False
+
+        try:
+            # Split value into MSB and LSB
+            msb = (value >> 7) & 0x7F  # Most significant 7 bits
+            lsb = value & 0x7F  # Least significant 7 bits
+
+            # Send MSB first, then LSB
+            msg_msb = mido.Message('control_change', channel=channel, control=cc_msb, value=msb)
+            msg_lsb = mido.Message('control_change', channel=channel, control=cc_lsb, value=lsb)
+            self.output_port.send(msg_msb)  # type: ignore[attr-defined]
+            self.output_port.send(msg_lsb)  # type: ignore[attr-defined]
+            logger.debug(f'Sent high-res CC: channel={channel + 1}, cc_msb={cc_msb}, cc_lsb={cc_lsb}, value={value}')
+            return True
+        except Exception as e:
+            logger.error(f'Error sending high-res CC message: {e}')
             return False

@@ -2,14 +2,12 @@
 LFO tools for controlling LFO parameters on the Digitone.
 """
 
-from moog_sub37_mcp.sub37.services.lfo_controller import (
-    LFO1Controller,
-    LFO2Controller,
-)
-from moog_sub37_mcp.sub37.config.config import digitone_config
+from mcp.server.fastmcp import FastMCP
+
+from moog_sub37_mcp.midi.midi_manager import MIDIManager
 
 
-def register_lfo_tools(mcp, midi):
+def register_lfo_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
     """
     Register all LFO tools with the MCP server.
 
@@ -18,389 +16,277 @@ def register_lfo_tools(mcp, midi):
         midi: The MIDI interface
     """
 
-    # LFO1 tools
     @mcp.tool()
-    def set_lfo1_speed(value: int, track: int):
+    def set_clock_divider_4_whole_notes(value: int, channel: int = 3):  # type: ignore
         """
-        Set the speed of LFO1.
+        Set the clock divider for 4 whole notes.
 
         Args:
-            value (int): Speed value ranging from 0 to 127.
-                - 0 maps to 0
-                - 127 maps to 127
-                Display range: 0-127.
-                Default is 48.
-            track (int): The track number to set the LFO speed for. 1-16
+            value (int): The clock divider value (0-6, default 6).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return LFO1Controller(
-            digitone_config.lfo.lfo_groups["lfo_1"], midi, track
-        ).set_speed(value)
+        midi.send_cc(channel, 3, value)
 
     @mcp.tool()
-    def set_lfo1_multiplier(value: int, track: int):
+    def set_clock_divider_3_whole_notes(value: int, channel: int = 3):  # type: ignore
         """
-        Set the multiplier of LFO1.
+        Set the clock divider for 3 whole notes.
 
         Args:
-            value (int): Multiplier value ranging from 0 to 11.
-                - 0 maps to 1
-                - 11 maps to 2000
-                Display range: 1-2000.
-                Default is 2.
-            track (int): The track number to set the LFO multiplier for. 1-16
+            value (int): The clock divider value (7-12, default 10).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return LFO1Controller(
-            digitone_config.lfo.lfo_groups["lfo_1"], midi, track
-        ).set_multiplier(value)
+        midi.send_cc(channel, 3, value)
 
     @mcp.tool()
-    def set_lfo1_fade(value: int, track: int):
+    def set_clock_divider_2_whole_notes(value: int, channel: int = 3):  # type: ignore
         """
-        Set the fade in/out of LFO1.
+        Set the clock divider for 2 whole notes.
 
         Args:
-            value (int): Fade value ranging from 0 to 127.
-                - 0 maps to -64
-                - 64 maps to 0
-                - 127 maps to 63
-                Display range: -64 to 63.
-                Default is 0.
-            track (int): The track number to set the LFO fade for. 1-16
+            value (int): The clock divider value (13-18, default 16).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return LFO1Controller(
-            digitone_config.lfo.lfo_groups["lfo_1"], midi, track
-        ).set_fade(value)
+        midi.send_cc(channel, 3, value)
 
     @mcp.tool()
-    def set_lfo1_destination(value: int, track: int):
+    def set_clock_divider_whole_note_half(value: int, channel: int = 3):  # type: ignore
         """
-        Set the destination of LFO1.
+        Set the clock divider for whole note and a half.
 
         Args:
-            value (int): Destination value ranging from 0 to 99.
-                - 0 = none (default)
-                - 25 = wavetone_osc1_pitch
-                - 26 = wavetone_osc1_waveform
-                - 27 = wavetone_osc1_wavetable
-                - 28 = wavetone_osc1_offset
-                - 29 = wavetone_osc1_phase_distortion
-                - 30 = wavetone_osc1_level
-                - 31 = wavetone_osc2_pitch
-                - 32 = wavetone_osc2_waveform
-                - 33 = wavetone_osc2_wavetable
-                - 34 = wavetone_osc2_offset
-                - 35 = wavetone_osc2_phase_distortion
-                - 36 = wavetone_osc2_level
-                - 37 = wavetone_mode
-                - 38 = wavetone_drift
-                - 39 = wavetone_phase_reset
-                - 40 = wavetone_noise_attack
-                - 41 = wavetone_noise_hold
-                - 42 = wavetone_noise_decay
-                - 43 = wavetone_noise_level
-                - 44 = wavetone_noise_base
-                - 45 = wavetone_noise_width
-                - 46 = wavetone_noise_type
-                - 47 = wavetone_noise_character
-                - 66 = filter_type
-                - 67 = filter_freq
-                - 69 = filter_envelope_depth
-                - 70 = filter_envelope_delay
-                - 71 = filter_envelope_attack
-                - 72 = filter_envelope_decay
-                - 73 = filter_envelope_sustain
-                - 74 = filter_envelope_release
-                - 75 = filter_reset
-                - 76 = filter_base
-                - 77 = filter_width
-                - 78 = filter_bw_rt
-                - 79 = filter_key_track
-                - 81 = amp_attack
-                - 82 = amp_hold
-                - 83 = amp_decay
-                - 84 = amp_sustain
-                - 85 = amp_release
-                - 86 = fx_delay_send
-                - 87 = fx_reverb_send
-                - 88 = fx_chorus_send
-                - 89 = amp_pan
-                - 90 = amp_volume
-                - 95 = fx_bit_reduction
-                - 96 = fx_srr
-                - 97 = fx_srr_routing
-                - 98 = fx_overdrive
-                - 99 = fx_overdrive_routing
-            track (int): The track number to set the LFO destination for. 1-16
+            value (int): The clock divider value (19-24, default 22).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return LFO1Controller(
-            digitone_config.lfo.lfo_groups["lfo_1"], midi, track
-        ).set_destination(value)
+        midi.send_cc(channel, 3, value)
 
     @mcp.tool()
-    def set_lfo1_waveform(value: int, track: int):
+    def set_clock_divider_whole_note(value: int, channel: int = 3):  # type: ignore
         """
-        Set the waveform of LFO1.
+        Set the clock divider for whole note.
 
         Args:
-            value (int): Waveform value ranging from 0 to 6.
-                - 0 = "tri"
-                - 1 = "sine"
-                - 2 = "sqr"
-                - 3 = "saw"
-                - 4 = "expo"
-                - 5 = "ramp"
-                - 6 = "rand"
-                Default is "sine" (1).
-            track (int): The track number to set the LFO waveform for. 1-16
+            value (int): The clock divider value (25-40, default 32).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return LFO1Controller(
-            digitone_config.lfo.lfo_groups["lfo_1"], midi, track
-        ).set_waveform(value)
+        midi.send_cc(channel, 3, value)
 
     @mcp.tool()
-    def set_lfo1_start_phase(value: int, track: int):
+    def set_clock_divider_dotted_half_note(value: int, channel: int = 3):  # type: ignore
         """
-        Set the start phase of LFO1.
+        Set the clock divider for dotted half note.
 
         Args:
-            value (int): Start phase value ranging from 0 to 127.
-                - 0 maps to 0
-                - 127 maps to 127
-                Display range: 0-127.
-            track (int): The track number to set the LFO start phase for. 1-16
+            value (int): The clock divider value (31-36, default 34).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return LFO1Controller(
-            digitone_config.lfo.lfo_groups["lfo_1"], midi, track
-        ).set_start_phase(value)
+        midi.send_cc(channel, 3, value)
 
     @mcp.tool()
-    def set_lfo1_trigger_mode(value: int, track: int):
+    def set_clock_divider_whole_note_triplet(value: int, channel: int = 3):  # type: ignore
         """
-        Set the trigger mode of LFO1.
+        Set the clock divider for whole note triplet.
 
         Args:
-            value (int): Trigger mode value ranging from 0 to 4.
-                - 0 = "free"
-                - 1 = "trig"
-                - 2 = "hold"
-                - 3 = "one"
-                - 4 = "half"
-                Default is "free" (0).
-            track (int): The track number to set the LFO trigger mode for. 1-16
+            value (int): The clock divider value (37-42, default 40).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return LFO1Controller(
-            digitone_config.lfo.lfo_groups["lfo_1"], midi, track
-        ).set_trigger_mode(value)
+        midi.send_cc(channel, 3, value)
 
     @mcp.tool()
-    def set_lfo1_depth(value: int, track: int):
+    def set_clock_divider_half_note(value: int, channel: int = 3):  # type: ignore
         """
-        Set the depth of LFO1.
+        Set the clock divider for half note.
 
         Args:
-            value (int): Depth value ranging from 0 to 127.
-                - 0 maps to 0
-                - 127 maps to 127
-                Display range: 0-127.
-            track (int): The track number to set the LFO depth for. 1-16
+            value (int): The clock divider value (43-48, default 46).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return LFO1Controller(
-            digitone_config.lfo.lfo_groups["lfo_1"], midi, track
-        ).set_depth(value)
-
-    # LFO2 tools
-    @mcp.tool()
-    def set_lfo2_speed(value: int, track: int):
-        """
-        Set the speed of LFO2.
-
-        Args:
-            value (int): Speed value ranging from 0 to 127.
-                - 0 maps to 0
-                - 127 maps to 127
-                Display range: 0-127.
-                Default is 48.
-            track (int): The track number to set the LFO speed for. 1-16
-        """
-        return LFO2Controller(
-            digitone_config.lfo.lfo_groups["lfo_2"], midi, track
-        ).set_speed(value)
+        midi.send_cc(channel, 3, value)
 
     @mcp.tool()
-    def set_lfo2_multiplier(value: int, track: int):
+    def set_clock_divider_dotted_quarter_note_triplet(value: int, channel: int = 3):  # type: ignore
         """
-        Set the multiplier of LFO2.
+        Set the clock divider for dotted quarter note triplet.
 
         Args:
-            value (int): Multiplier value ranging from 0 to 11.
-                - 0 maps to 1
-                - 11 maps to 2000
-                Display range: 1-2000.
-                Default is 2.
-            track (int): The track number to set the LFO multiplier for. 1-16
+            value (int): The clock divider value (49-54, default 52).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return LFO2Controller(
-            digitone_config.lfo.lfo_groups["lfo_2"], midi, track
-        ).set_multiplier(value)
+        midi.send_cc(channel, 3, value)
 
     @mcp.tool()
-    def set_lfo2_fade(value: int, track: int):
+    def set_clock_divider_half_note_triplet(value: int, channel: int = 3):  # type: ignore
         """
-        Set the fade in/out of LFO2.
+        Set the clock divider for half note triplet.
 
         Args:
-            value (int): Fade value ranging from 0 to 127.
-                - 0 maps to -64
-                - 64 maps to 0
-                - 127 maps to 63
-                Display range: -64 to 63.
-                Default is 0.
-            track (int): The track number to set the LFO fade for. 1-16
+            value (int): The clock divider value (55-60, default 58).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return LFO2Controller(
-            digitone_config.lfo.lfo_groups["lfo_2"], midi, track
-        ).set_fade(value)
+        midi.send_cc(channel, 3, value)
 
     @mcp.tool()
-    def set_lfo2_destination(value: int, track: int):
+    def set_clock_divider_quarter_note(value: int, channel: int = 3):  # type: ignore
         """
-        Set the destination of LFO2.
+        Set the clock divider for quarter note.
 
         Args:
-            value (int): Destination value ranging from 0 to 99.
-                - 0 = none (default)
-                - 1 = lfo1_speed
-                - 2 = lfo1_multiplier
-                - 3 = lfo1_fade
-                - 5 = lfo1_wave
-                - 6 = lfo1_start_phase
-                - 7 = lfo1_mode
-                - 8 = lfo1_depth
-                - 25 = wavetone_osc1_pitch
-                - 26 = wavetone_osc1_waveform
-                - 27 = wavetone_osc1_wavetable
-                - 28 = wavetone_osc1_offset
-                - 29 = wavetone_osc1_phase_distortion
-                - 30 = wavetone_osc1_level
-                - 31 = wavetone_osc2_pitch
-                - 32 = wavetone_osc2_waveform
-                - 33 = wavetone_osc2_wavetable
-                - 34 = wavetone_osc2_offset
-                - 35 = wavetone_osc2_phase_distortion
-                - 36 = wavetone_osc2_level
-                - 37 = wavetone_mode
-                - 38 = wavetone_drift
-                - 39 = wavetone_phase_reset
-                - 40 = wavetone_noise_attack
-                - 41 = wavetone_noise_hold
-                - 42 = wavetone_noise_decay
-                - 43 = wavetone_noise_level
-                - 44 = wavetone_noise_base
-                - 45 = wavetone_noise_width
-                - 46 = wavetone_noise_type
-                - 47 = wavetone_noise_character
-                - 66 = filter_type
-                - 67 = filter_freq
-                - 69 = filter_envelope_depth
-                - 70 = filter_envelope_delay
-                - 71 = filter_envelope_attack
-                - 72 = filter_envelope_decay
-                - 73 = filter_envelope_sustain
-                - 74 = filter_envelope_release
-                - 75 = filter_reset
-                - 76 = filter_base
-                - 77 = filter_width
-                - 78 = filter_bw_rt
-                - 79 = filter_key_track
-                - 81 = amp_attack
-                - 82 = amp_hold
-                - 83 = amp_decay
-                - 84 = amp_sustain
-                - 85 = amp_release
-                - 86 = fx_delay_send
-                - 87 = fx_reverb_send
-                - 88 = fx_chorus_send
-                - 89 = amp_pan
-                - 90 = amp_volume
-                - 95 = fx_bit_reduction
-                - 96 = fx_srr
-                - 97 = fx_srr_routing
-                - 98 = fx_overdrive
-                - 99 = fx_overdrive_routing
-            track (int): The track number to set the LFO destination for. 1-16
+            value (int): The clock divider value (61-67, default 64).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return LFO2Controller(
-            digitone_config.lfo.lfo_groups["lfo_2"], midi, track
-        ).set_destination(value)
+        midi.send_cc(channel, 3, value)
 
     @mcp.tool()
-    def set_lfo2_waveform(value: int, track: int):
+    def set_clock_divider_dotted_eighth_note(value: int, channel: int = 3):  # type: ignore
         """
-        Set the waveform of LFO2.
+        Set the clock divider for dotted eighth note.
 
         Args:
-            value (int): Waveform value ranging from 0 to 6.
-                - 0 = "tri"
-                - 1 = "sine"
-                - 2 = "sqr"
-                - 3 = "saw"
-                - 4 = "expo"
-                - 5 = "ramp"
-                - 6 = "rand"
-                Default is "sine" (1).
-            track (int): The track number to set the LFO waveform for. 1-16
+            value (int): The clock divider value (68-73, default 70).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return LFO2Controller(
-            digitone_config.lfo.lfo_groups["lfo_2"], midi, track
-        ).set_waveform(value)
+        midi.send_cc(channel, 3, value)
 
     @mcp.tool()
-    def set_lfo2_start_phase(value: int, track: int):
+    def set_clock_divider_quarter_note_triplet(value: int, channel: int = 3):  # type: ignore
         """
-        Set the start phase of LFO2.
+        Set the clock divider for quarter note triplet.
 
         Args:
-            value (int): Start phase value ranging from 0 to 127.
-                - 0 maps to 0
-                - 127 maps to 127
-                Display range: 0-127.
-            track (int): The track number to set the LFO start phase for. 1-16
+            value (int): The clock divider value (74-79, default 76).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return LFO2Controller(
-            digitone_config.lfo.lfo_groups["lfo_2"], midi, track
-        ).set_start_phase(value)
+        midi.send_cc(channel, 3, value)
 
     @mcp.tool()
-    def set_lfo2_trigger_mode(value: int, track: int):
+    def set_clock_divider_eighth_note(value: int, channel: int = 3):  # type: ignore
         """
-        Set the trigger mode of LFO2.
+        Set the clock divider for eighth note.
 
         Args:
-            value (int): Trigger mode value ranging from 0 to 4.
-                - 0 = "free"
-                - 1 = "trig"
-                - 2 = "hold"
-                - 3 = "one"
-                - 4 = "half"
-                Default is "free" (0).
-            track (int): The track number to set the LFO trigger mode for. 1-16
+            value (int): The clock divider value (80-85, default 82).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return LFO2Controller(
-            digitone_config.lfo.lfo_groups["lfo_2"], midi, track
-        ).set_trigger_mode(value)
+        midi.send_cc(channel, 3, value)
 
     @mcp.tool()
-    def set_lfo2_depth(value: int, track: int):
+    def set_clock_divider_dotted_sixteenth_note(value: int, channel: int = 3):  # type: ignore
         """
-        Set the depth of LFO2.
+        Set the clock divider for dotted sixteenth note.
 
         Args:
-            value (int): Depth value ranging from 0 to 127.
-                - 0 maps to 0
-                - 127 maps to 127
-                Display range: 0-127.
-            track (int): The track number to set the LFO depth for. 1-16
+            value (int): The clock divider value (86-91, default 88).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return LFO2Controller(
-            digitone_config.lfo.lfo_groups["lfo_2"], midi, track
-        ).set_depth(value)
+        midi.send_cc(channel, 3, value)
+
+    @mcp.tool()
+    def set_clock_divider_eighth_note_triplet(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the clock divider for eighth note triplet.
+
+        Args:
+            value (int): The clock divider value (92-97, default 94).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 3, value)
+
+    @mcp.tool()
+    def set_clock_divider_sixteenth_note(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the clock divider for sixteenth note.
+
+        Args:
+            value (int): The clock divider value (98-103, default 100).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 3, value)
+
+    @mcp.tool()
+    def set_clock_divider_sixteenth_note_triplet(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the clock divider for sixteenth note triplet.
+
+        Args:
+            value (int): The clock divider value (104-109, default 106).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 3, value)
+
+    @mcp.tool()
+    def set_clock_divider_thirtysecond_note(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the clock divider for thirty-second note.
+
+        Args:
+            value (int): The clock divider value (110-115, default 112).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 3, value)
+
+    @mcp.tool()
+    def set_clock_divider_thirtysecond_note_triplet(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the clock divider for thirty-second note triplet.
+
+        Args:
+            value (int): The clock divider value (116-121, default 118).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 3, value)
+
+    @mcp.tool()
+    def set_clock_divider_sixtyfourth_note_triplet(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the clock divider for sixty-fourth note triplet.
+
+        Args:
+            value (int): The clock divider value (122-127, default 124).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 3, value)
+
+    @mcp.tool()
+    def set_lfo_rate(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO rate with high resolution.
+
+        Args:
+            value (int): High-resolution value for LFO rate (0-16383, default 9984).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_high_res_cc(channel, 3, 34, value)
+
+    @mcp.tool()
+    def set_mod1_pitch_amt(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the MOD 1 Pitch Amount with high resolution.
+
+        Args:
+            value (int): High-resolution value for MOD 1 Pitch Amount (0-16383).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_high_res_cc(channel, 4, 36, value)
+
+    @mcp.tool()
+    def set_mod1_filter_amt(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the MOD 1 Filter Amount with high resolution.
+
+        Args:
+            value (int): High-resolution value for MOD 1 Filter Amount (0-16383).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_high_res_cc(channel, 11, 43, value)
+
+    @mcp.tool()
+    def set_mod1_pgm_dest_amt(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the MOD 1 Programmable Destination Amount with high resolution.
+
+        Args:
+            value (int): High-resolution value for MOD 1 Programmable Destination Amount (0-16383).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_high_res_cc(channel, 20, 52, value)
