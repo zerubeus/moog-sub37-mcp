@@ -15,15 +15,11 @@ install: .uv .pre-commit ## Install the package, dependencies, and pre-commit fo
 
 .PHONY: install-all-python
 install-all-python: ## Install and synchronize an interpreter for every python version
-	UV_PROJECT_ENVIRONMENT=.venv39 uv sync --python 3.9 --frozen --all-extras --all-packages --group lint --group docs
-	UV_PROJECT_ENVIRONMENT=.venv310 uv sync --python 3.10 --frozen --all-extras --all-packages --group lint --group docs
-	UV_PROJECT_ENVIRONMENT=.venv311 uv sync --python 3.11 --frozen --all-extras --all-packages --group lint --group docs
-	UV_PROJECT_ENVIRONMENT=.venv312 uv sync --python 3.12 --frozen --all-extras --all-packages --group lint --group docs
-	UV_PROJECT_ENVIRONMENT=.venv313 uv sync --python 3.13 --frozen --all-extras --all-packages --group lint --group docs
+	UV_PROJECT_ENVIRONMENT=.venv uv sync --python 3.12 --frozen --all-extras --all-packages --group dev
 
 .PHONY: sync
 sync: .uv ## Update local packages and uv.lock
-	uv sync --all-extras --all-packages --group lint --group docs
+	uv sync --all-extras --all-packages --group dev
 
 .PHONY: format
 format: ## Format the code
@@ -35,18 +31,10 @@ lint: ## Lint the code
 	uv run ruff format --check
 	uv run ruff check
 
-.PHONY: lint-js
-lint-js: ## Lint JS and TS code
-	cd mcp-run-python && deno task lint-format
-
 .PHONY: typecheck-pyright
 typecheck-pyright:
 	@# PYRIGHT_PYTHON_IGNORE_WARNINGS avoids the overhead of making a request to github on every invocation
 	PYRIGHT_PYTHON_IGNORE_WARNINGS=1 uv run pyright
-
-.PHONY: typecheck-mypy
-typecheck-mypy:
-	uv run mypy
 
 .PHONY: typecheck
 typecheck: typecheck-pyright ## Run static type checking
