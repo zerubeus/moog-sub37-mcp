@@ -290,3 +290,25 @@ def register_lfo_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
             channel (int): MIDI channel (default is 3 if not specified).
         """
         midi.send_high_res_cc(channel, 20, 52, value)
+
+    @mcp.tool()
+    def set_mod1_osc_1_2_sel(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the MOD 1 Oscillator 1/2 Selection.
+
+        Args:
+            value (int): Value for oscillator selection (0 = OSC1 + OSC2, 43 = OSC1, 85 = OSC2).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 70, value)
+
+    @mcp.tool()
+    def set_mod1_source(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the MOD 1 Source selection.
+
+        Args:
+            value (int): Value for source selection (0 = TRIANGLE LFO, 21 = SQUARE LFO, 43 = SAW LFO, 64 = RAMP LFO, 85 = S&H LFO, 107 = F.EG/PGM).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 71, value)
