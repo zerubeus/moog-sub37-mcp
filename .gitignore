@@ -8,7 +8,8 @@ wheels/
 .vscode
 *.egg-info
 .env
-
+.pytest_cache
+.ruff_cache
 # Virtual environments
 .venv
 
