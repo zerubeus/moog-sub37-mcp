@@ -1,7 +1,12 @@
+import logging
 import sys
 
 from moog_sub37_mcp.mcp_server.server import mcp
 from moog_sub37_mcp.midi.midi_manager import MIDIManager
+
+# Configure logging
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 
 def check_midi_connection():
@@ -9,37 +14,29 @@ def check_midi_connection():
     try:
         midi = MIDIManager(port_name='Moog Sub 37')
         if not midi.connected:
-            print(
-                'ERROR: Could not connect to Moog Sub 37. Please check your USB connection.',
-                file=sys.stderr,
-            )
-            print(f'Available MIDI ports: {midi.list_ports()}', file=sys.stderr)
+            logger.error('Could not connect to Moog Sub 37. Please check your USB connection.')
+            logger.info(f'Available MIDI ports: {midi.list_ports()}')
             return False
-        print(
-            f'Successfully connected to MIDI device: {midi.output_port}',
-            file=sys.stderr,
-        )
+        logger.info(f'Successfully connected to MIDI device: {midi.output_port}')
         return True
     except Exception as e:
-        print(f'ERROR connecting to MIDI: {str(e)}', file=sys.stderr)
+        logger.error(f'ERROR connecting to MIDI: {str(e)}')
         return False
 
 
 def main():
     """Entry point for the sub37-mcp command"""
-    print('Starting Moog Sub37 MCP server...', file=sys.stderr)
+    logger.info('Starting Moog Sub37 MCP server...')
 
     # Verify MIDI connection before starting server
     if not check_midi_connection():
-        print(
-            'MIDI connection failed. Server will start but may not function correctly.',
-            file=sys.stderr,
-        )
+        logger.warning('MIDI connection failed. Server will start but may not function correctly.')
 
     try:
+        logger.info('Starting MCP server...')
         mcp.run()
     except Exception as e:
-        print(f'ERROR running MCP server: {str(e)}', file=sys.stderr)
+        logger.error(f'ERROR running MCP server: {str(e)}', exc_info=True)
         sys.exit(1)
 
 
