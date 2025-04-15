@@ -171,17 +171,6 @@ def register_osc_tools(mcp: FastMCP, midi: MIDIManager):
         midi.send_cc(channel, 92, value)
 
     @mcp.tool()
-    def set_lfo2_range(value: int, channel: int = 3):  # type: ignore
-        """
-        Set the LFO 2 Range selection.
-
-        Args:
-            value (int): Value for range selection (0 = Low Range, 43 = Med Range, 85 = Hi Range).
-            channel (int): MIDI channel (default is 3 if not specified).
-        """
-        midi.send_cc(channel, 78, value)
-
-    @mcp.tool()
     def set_pitch_bend_up_amount(value: int, channel: int = 3):  # type: ignore
         """
         Set the Pitch Bend Up Amount.
