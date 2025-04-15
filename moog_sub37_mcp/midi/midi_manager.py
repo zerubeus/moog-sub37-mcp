@@ -145,12 +145,23 @@ class MIDIManager:
             msb = (value >> 7) & 0x7F  # Most significant 7 bits
             lsb = value & 0x7F  # Least significant 7 bits
 
-            # Send MSB first, then LSB
-            msg_msb = mido.Message('control_change', channel=channel, control=cc_msb, value=msb)
+            # First reset both controllers to 0 to ensure proper initialization
+            msg_msb_reset = mido.Message('control_change', channel=channel, control=cc_msb, value=0)
+            msg_lsb_reset = mido.Message('control_change', channel=channel, control=cc_lsb, value=0)
+
+            # Then send the actual values - LSB must be sent before MSB for proper operation
             msg_lsb = mido.Message('control_change', channel=channel, control=cc_lsb, value=lsb)
-            self.output_port.send(msg_msb)  # type: ignore[attr-defined]
+            msg_msb = mido.Message('control_change', channel=channel, control=cc_msb, value=msb)
+
+            # Send messages in the correct order with proper timing
+            self.output_port.send(msg_msb_reset)  # type: ignore[attr-defined]
+            self.output_port.send(msg_lsb_reset)  # type: ignore[attr-defined]
             self.output_port.send(msg_lsb)  # type: ignore[attr-defined]
-            logger.debug(f'Sent high-res CC: channel={channel + 1}, cc_msb={cc_msb}, cc_lsb={cc_lsb}, value={value}')
+            self.output_port.send(msg_msb)  # type: ignore[attr-defined]
+
+            logger.debug(
+                f'Sent high-res CC: channel={channel + 1}, cc_msb={cc_msb}, cc_lsb={cc_lsb}, value={value} (msb={msb}, lsb={lsb})'
+            )
             return True
         except Exception as e:
             logger.error(f'Error sending high-res CC message: {e}')
