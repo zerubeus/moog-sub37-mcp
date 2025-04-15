@@ -87,32 +87,16 @@ Go to Claude > Settings > Developer > Edit Config > claude_desktop_config.json t
 }
 ```
 
-## Architecture
-
-The MCP server is designed to provide comprehensive control over the Sub37/Subsequent37:
-
-- **Parameter Control**: Direct access to all synthesizer parameters via MIDI CC messages
-- **Preset Management**: Load, save, and modify presets
-- **Real-time Control**: Immediate response to parameter changes
-- **MIDI Implementation**: Complete MIDI specification support
-- **Error Handling**: Robust error handling for MIDI communication
-
 ## Implementation Details
 
 This library leverages:
 
 - **FastMCP**: For exposing synth controls to LLMs
-- **Pydantic Models**: For parameter validation and type safety
 - **mido**: For reliable MIDI communication with the synthesizer
-- **Dynamic Versioning**: Automatic version management for releases
 
 ## Use Cases
 
 - **AI-Assisted Sound Design**: Let Claude help you create new sounds and explore the synth's capabilities
-- **Automated Parameter Control**: Program complex parameter changes for evolving sounds
-- **Preset Management**: Organize and modify your preset library
-- **Live Performance**: Control the synth in real-time with AI assistance
-- **Educational Tool**: Learn about synthesis through interactive AI guidance
 
 ## Community and Support
 
