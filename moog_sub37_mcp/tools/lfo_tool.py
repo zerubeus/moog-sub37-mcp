@@ -479,36 +479,6 @@ def register_lfo_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
         midi.send_cc(channel, 20, value)
 
     @mcp.tool()
-    def set_lfo_mod1_osc_1_2_sel(value: int, channel: int = 3):  # type: ignore
-        """
-        Set the MOD 1 OSC 1/2 SEL (CC #70).
-        Args:
-            value (int): Value for MOD 1 OSC 1/2 SEL:
-                0 = OSC1 + OSC2
-                43 = OSC1
-                85 = OSC2
-            channel (int): MIDI channel (default is 3).
-        """
-        midi.send_cc(channel, 70, value)
-
-    @mcp.tool()
-    def set_lfo_mod1_source(value: int, channel: int = 3):  # type: ignore
-        """
-        Set the MOD 1 SOURCE (NRPN 440, MSB 3, LSB 56).
-        Args:
-            value (int): Value for MOD 1 SOURCE (0-6):
-                0 = TRIANGLE LFO
-                1 = SQUARE LFO
-                2 = SAW LFO
-                3 = RAMP LFO
-                4 = S&H LFO
-                5 = F.EG/PGM
-                6 = Reserved
-            channel (int): MIDI channel (default is 3).
-        """
-        midi.send_nrpn(channel, 3, 56, value)
-
-    @mcp.tool()
     def set_mod1_pgm_src(value: int, channel: int = 3):  # type: ignore
         """
         Set the MOD 1 PGM SRC (NRPN 441, MSB 3, LSB 57).

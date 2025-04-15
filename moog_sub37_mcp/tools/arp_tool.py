@@ -17,16 +17,6 @@ def register_arp_tools(mcp: FastMCP, midi: MIDIManager):
     """
 
     @mcp.tool()
-    def set_arp_mod_wheel(value: int, channel: int = 3):  # type: ignore
-        """
-        Set the MOD WHEEL (NRPN 402, MSB 3, LSB 18).
-        Args:
-            value (int): Value for MOD WHEEL (0-16383).
-            channel (int): MIDI channel (default is 3).
-        """
-        midi.send_nrpn(channel, 3, 18, value)
-
-    @mcp.tool()
     def set_arp_rate(value: int, channel: int = 3):  # type: ignore
         """
         Set the ARP Rate (NRPN 403, MSB 3, LSB 19).
