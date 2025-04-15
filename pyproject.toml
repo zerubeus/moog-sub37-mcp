@@ -25,6 +25,9 @@ dependencies = [
     "mcp[cli]>=1.5.0",
 ]
 
+[project.scripts]
+moog-sub37-mcp = "moog_sub37_mcp.main:main"
+
 [project.urls]
 "Homepage" = "https://github.com/zerubeus/moog-sub37-mcp"
 "Bug Tracker" = "https://github.com/zerubeus/moog-sub37-mcp/issues"
