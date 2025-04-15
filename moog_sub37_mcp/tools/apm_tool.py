@@ -59,3 +59,14 @@ def register_apm_tools(mcp: FastMCP, midi: MIDIManager):
             channel (int): MIDI channel (default is 3 if not specified).
         """
         midi.send_high_res_cc(channel, 31, 63, value)
+
+    @mcp.tool()
+    def set_amp_eg_hold(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the AMP EG Hold.
+
+        Args:
+            value (int): Value for AMP EG Hold (0-127).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 106, value)

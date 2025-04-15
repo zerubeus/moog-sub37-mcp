@@ -125,3 +125,36 @@ def register_fx_tools(mcp: FastMCP, midi: MIDIManager):
             channel (int): MIDI channel (default is 3 if not specified).
         """
         midi.send_cc(channel, 89, value)
+
+    @mcp.tool()
+    def set_filter_eg_multi_trig(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the Filter EG Multi Trig.
+
+        Args:
+            value (int): Value for Filter EG Multi Trig (0 = OFF, 64 = ON).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 112, value)
+
+    @mcp.tool()
+    def set_amp_eg_multi_trig(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the AMP EG Multi Trig.
+
+        Args:
+            value (int): Value for AMP EG Multi Trig (0 = OFF, 64 = ON).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 113, value)
+
+    @mcp.tool()
+    def set_local_control(value: int, channel: int = 3):  # type: ignore
+        """
+        Set Local Control On/Off.
+
+        Args:
+            value (int): Value for Local Control (0 = OFF, 127 = ON).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 122, value)

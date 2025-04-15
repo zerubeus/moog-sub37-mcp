@@ -191,3 +191,113 @@ def register_osc_tools(mcp: FastMCP, midi: MIDIManager):
             channel (int): MIDI channel (default is 3 if not specified).
         """
         midi.send_cc(channel, 95, value)
+
+    @mcp.tool()
+    def set_pitch_bend_up_amount(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the Pitch Bend Up Amount.
+
+        Args:
+            value (int): Value for Pitch Bend Up Amount (0-24, in semitones).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 107, value)
+
+    @mcp.tool()
+    def set_pitch_bend_down_amount(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the Pitch Bend Down Amount.
+
+        Args:
+            value (int): Value for Pitch Bend Down Amount (0-24, in semitones).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 108, value)
+
+    @mcp.tool()
+    def set_filter_slopes(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the Filter Slopes (Poles).
+
+        Args:
+            value (int): Value for Filter Slopes (0 = -6dB, 32 = -12dB, 64 = -18dB, 96 = -24dB).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 109, value)
+
+    @mcp.tool()
+    def set_osc_duo_mode(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the OSC Duo Mode On/Off.
+
+        Args:
+            value (int): Value for OSC Duo Mode (0 = OFF, 64 = ON).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 110, value)
+
+    @mcp.tool()
+    def set_kb_ctrl_lo_hi(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the Keyboard Control LO/HI.
+
+        Args:
+            value (int): Value for Keyboard Control (0 = NEITHER, 32 = LO, 64 = HI).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 111, value)
+
+    @mcp.tool()
+    def set_osc1_level(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the OSC 1 Level.
+
+        Args:
+            value (int): Value for OSC 1 Level (0-127).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 114, value)
+
+    @mcp.tool()
+    def set_osc1_sub_level(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the OSC 1 Sub Level.
+
+        Args:
+            value (int): Value for OSC 1 Sub Level (0-127).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 115, value)
+
+    @mcp.tool()
+    def set_osc2_level(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the OSC 2 Level.
+
+        Args:
+            value (int): Value for OSC 2 Level (0-127).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 116, value)
+
+    @mcp.tool()
+    def set_noise_level(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the Noise Level.
+
+        Args:
+            value (int): Value for Noise Level (0-127).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 117, value)
+
+    @mcp.tool()
+    def set_feedback_ext_level(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the Feedback/Ext Level.
+
+        Args:
+            value (int): Value for Feedback/Ext Level (0-127).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 118, value)
