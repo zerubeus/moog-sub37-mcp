@@ -94,13 +94,18 @@ def register_osc_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
         midi.send_high_res_cc(channel, 17, 49, value)
 
     @mcp.tool()
-    def set_mod2_source_cc(value: int, channel: int = 3):  # type: ignore
+    def set_osc_mod2_source_cc(value: int, channel: int = 3):  # type: ignore
         """
-        Set the MOD 2 Source selection using CC method (CC #72).
-
+        Set the MOD 2 SOURCE using CC method (CC #72).
         Args:
-            value (int): Value for source selection (0 = TRIANGLE LFO, 21 = SQUARE LFO, 43 = SAW LFO, 64 = RAMP LFO, 85 = S&H LFO, 107 = F.EG/PGM).
-            channel (int): MIDI channel (default is 3 if not specified).
+            value (int): Value for MOD 2 SOURCE:
+                0 = TRIANGLE LFO
+                21 = SQUARE LFO
+                43 = SAW LFO
+                64 = RAMP LFO
+                85 = S&H LFO
+                107 = F.EG/PGM
+            channel (int): MIDI channel (default is 3).
         """
         midi.send_cc(channel, 72, value)
 
@@ -273,14 +278,18 @@ def register_osc_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
         midi.send_nrpn(channel, 3, 113, value)
 
     @mcp.tool()
-    def set_osc2_wave(value: int, channel: int = 3):  # type: ignore  # noqa: F811
+    def set_osc2_wave_cc(value: int, channel: int = 3):  # type: ignore
         """
-        Set the OSC 2 WAVE (NRPN 484, MSB 3, LSB 100).
+        Set the OSC 2 WAVE using CC method (CC #21).
         Args:
-            value (int): Value for OSC 2 WAVE (0-16383).
+            value (int): Value for OSC 2 WAVE:
+                0-31 = WAVE 1 (Triangle/Square)
+                32-63 = WAVE 2 (Saw/Tri)
+                64-95 = WAVE 3 (Saw)
+                96-127 = WAVE 4 (Pulse)
             channel (int): MIDI channel (default is 3).
         """
-        midi.send_nrpn(channel, 3, 100, value)
+        midi.send_cc(channel, 21, value)
 
     @mcp.tool()
     def set_osc2_kb_ctrl(value: int, channel: int = 3):  # type: ignore

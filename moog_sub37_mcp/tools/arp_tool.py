@@ -17,7 +17,7 @@ def register_arp_tools(mcp: FastMCP, midi: MIDIManager):
     """
 
     @mcp.tool()
-    def set_mod_wheel(value: int, channel: int = 3):  # type: ignore
+    def set_arp_mod_wheel(value: int, channel: int = 3):  # type: ignore
         """
         Set the MOD WHEEL (NRPN 402, MSB 3, LSB 18).
         Args:

@@ -479,20 +479,22 @@ def register_lfo_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
         midi.send_cc(channel, 20, value)
 
     @mcp.tool()
-    def set_mod1_osc_1_2_sel(value: int, channel: int = 3):  # type: ignore
+    def set_lfo_mod1_osc_1_2_sel(value: int, channel: int = 3):  # type: ignore
         """
-        Set the MOD 1 Oscillator 1/2 Selection.
-
+        Set the MOD 1 OSC 1/2 SEL (CC #70).
         Args:
-            value (int): Value for oscillator selection (0 = OSC1 + OSC2, 43 = OSC1, 85 = OSC2).
-            channel (int): MIDI channel (default is 3 if not specified).
+            value (int): Value for MOD 1 OSC 1/2 SEL:
+                0 = OSC1 + OSC2
+                43 = OSC1
+                85 = OSC2
+            channel (int): MIDI channel (default is 3).
         """
         midi.send_cc(channel, 70, value)
 
     @mcp.tool()
-    def set_mod1_source(value: int, channel: int = 3):  # type: ignore
+    def set_lfo_mod1_source(value: int, channel: int = 3):  # type: ignore
         """
-        Set the MOD 1 Source (NRPN 440, MSB 3, LSB 56).
+        Set the MOD 1 SOURCE (NRPN 440, MSB 3, LSB 56).
         Args:
             value (int): Value for MOD 1 SOURCE (0-6):
                 0 = TRIANGLE LFO

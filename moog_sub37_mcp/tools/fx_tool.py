@@ -17,26 +17,24 @@ def register_fx_tools(mcp: FastMCP, midi: MIDIManager):
     """
 
     @mcp.tool()
-    def set_glide_time(value: int, channel: int = 3):  # type: ignore
+    def set_fx_glide_time(value: int, channel: int = 3):  # type: ignore
         """
-        Set the Glide Time with high resolution.
-
+        Set the Glide Time (NRPN 417, MSB 3, LSB 33).
         Args:
-            value (int): High-resolution value for Glide Time (0-16383).
-            channel (int): MIDI channel (default is 3 if not specified).
+            value (int): Value for Glide Time (0-16383).
+            channel (int): MIDI channel (default is 3).
         """
-        midi.send_high_res_cc(channel, 5, 37, value)
+        midi.send_nrpn(channel, 3, 33, value)
 
     @mcp.tool()
-    def set_master_volume(value: int, channel: int = 3):  # type: ignore
+    def set_fx_master_volume(value: int, channel: int = 3):  # type: ignore
         """
-        Set the Master Volume with high resolution.
-
+        Set the Master Volume (CC #7).
         Args:
-            value (int): High-resolution value for Master Volume (0-16383).
-            channel (int): MIDI channel (default is 3 if not specified).
+            value (int): Value for Master Volume (0-127).
+            channel (int): MIDI channel (default is 3).
         """
-        midi.send_high_res_cc(channel, 7, 39, value)
+        midi.send_cc(channel, 7, value)
 
     @mcp.tool()
     def set_hold_pedal(value: int, channel: int = 3):  # type: ignore
@@ -83,26 +81,24 @@ def register_fx_tools(mcp: FastMCP, midi: MIDIManager):
         midi.send_cc(channel, 73, value)
 
     @mcp.tool()
-    def set_glide_type(value: int, channel: int = 3):  # type: ignore
+    def set_fx_glide_type(value: int, channel: int = 3):  # type: ignore
         """
-        Set the Glide Type.
-
+        Set the Glide Type (NRPN 418, MSB 3, LSB 34).
         Args:
-            value (int): Value for Glide Type (0 = LCR, 43 = LCT, 85 = EXP).
-            channel (int): MIDI channel (default is 3 if not specified).
+            value (int): Value for Glide Type (0-1).
+            channel (int): MIDI channel (default is 3).
         """
-        midi.send_cc(channel, 85, value)
+        midi.send_nrpn(channel, 3, 34, value)
 
     @mcp.tool()
-    def set_glide_legato(value: int, channel: int = 3):  # type: ignore
+    def set_fx_glide_legato(value: int, channel: int = 3):  # type: ignore
         """
-        Set the Glide Legato On/Off.
-
+        Set the Glide Legato (NRPN 419, MSB 3, LSB 35).
         Args:
-            value (int): Value for Glide Legato (0 = OFF, 64 = ON).
-            channel (int): MIDI channel (default is 3 if not specified).
+            value (int): Value for Glide Legato (0-1).
+            channel (int): MIDI channel (default is 3).
         """
-        midi.send_cc(channel, 94, value)
+        midi.send_nrpn(channel, 3, 35, value)
 
     @mcp.tool()
     def set_glide_dest_osc(value: int, channel: int = 3):  # type: ignore
@@ -127,12 +123,11 @@ def register_fx_tools(mcp: FastMCP, midi: MIDIManager):
         midi.send_cc(channel, 112, value)
 
     @mcp.tool()
-    def set_amp_eg_multi_trig(value: int, channel: int = 3):  # type: ignore
+    def set_fx_amp_eg_multi_trig(value: int, channel: int = 3):  # type: ignore
         """
-        Set the AMP EG Multi Trig.
-
+        Set the AMP EG Multi Trig (NRPN 416, MSB 3, LSB 32).
         Args:
-            value (int): Value for AMP EG Multi Trig (0 = OFF, 64 = ON).
-            channel (int): MIDI channel (default is 3 if not specified).
+            value (int): Value for AMP EG Multi Trig (0-1).
+            channel (int): MIDI channel (default is 3).
         """
-        midi.send_cc(channel, 113, value)
+        midi.send_nrpn(channel, 3, 32, value)
