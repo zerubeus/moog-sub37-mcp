@@ -43,7 +43,7 @@ The Moog Sub37/Subsequent37 is a powerful analog synthesizer featuring:
 
 Watch Claude control the Moog Sub37/Subsequent37 in real-time:
 
-[![Claude controlling Moog Sub37](https://img.youtube.com/vi/EXf6lOTjla8/0.jpg)](https://www.youtube.com/watch?v=EXf6lOTjla8)
+coming soon
 
 ## Installation and Usage
 
