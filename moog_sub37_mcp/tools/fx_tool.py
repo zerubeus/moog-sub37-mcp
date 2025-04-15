@@ -158,3 +158,47 @@ def register_fx_tools(mcp: FastMCP, midi: MIDIManager):
             channel (int): MIDI channel (default is 3 if not specified).
         """
         midi.send_cc(channel, 122, value)
+
+    @mcp.tool()
+    def set_bank_select(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the Bank Select (MSB).
+
+        Args:
+            value (int): Value for Bank Select (should always be 0).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 0, value)
+
+    @mcp.tool()
+    def set_bank_select_lsb(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the Bank Select (LSB).
+
+        Args:
+            value (int): Value for Bank Select LSB (0 = Banks 1–8, 1 = Banks 9–16).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 32, value)
+
+    @mcp.tool()
+    def set_mod_wheel(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the Mod Wheel (normal resolution).
+
+        Args:
+            value (int): Value for Mod Wheel (0-127).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 1, value)
+
+    @mcp.tool()
+    def set_mod_wheel_high_res(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the Mod Wheel (high resolution).
+
+        Args:
+            value (int): High-resolution value for Mod Wheel (0-16383).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_high_res_cc(channel, 1, 33, value)

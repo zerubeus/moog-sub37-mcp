@@ -182,17 +182,6 @@ def register_osc_tools(mcp: FastMCP, midi: MIDIManager):
         midi.send_cc(channel, 78, value)
 
     @mcp.tool()
-    def set_lfo2_kb_reset(value: int, channel: int = 3):  # type: ignore
-        """
-        Set the LFO 2 Keyboard Reset.
-
-        Args:
-            value (int): Value for keyboard reset (0 = OFF, 64 = ON).
-            channel (int): MIDI channel (default is 3 if not specified).
-        """
-        midi.send_cc(channel, 95, value)
-
-    @mcp.tool()
     def set_pitch_bend_up_amount(value: int, channel: int = 3):  # type: ignore
         """
         Set the Pitch Bend Up Amount.

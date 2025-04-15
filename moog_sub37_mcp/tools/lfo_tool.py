@@ -345,3 +345,245 @@ def register_lfo_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
             channel (int): MIDI channel (default is 3 if not specified).
         """
         midi.send_cc(channel, 93, value)
+
+    @mcp.tool()
+    def set_lfo2_clock_divider_4_whole_notes(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 clock divider for 4 whole notes.
+
+        Args:
+            value (int): The clock divider value (0-6, default 6).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 8, value)
+
+    @mcp.tool()
+    def set_lfo2_clock_divider_3_whole_notes(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 clock divider for 3 whole notes.
+
+        Args:
+            value (int): The clock divider value (7-12, default 10).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 8, value)
+
+    @mcp.tool()
+    def set_lfo2_clock_divider_2_whole_notes(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 clock divider for 2 whole notes.
+
+        Args:
+            value (int): The clock divider value (13-18, default 16).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 8, value)
+
+    @mcp.tool()
+    def set_lfo2_clock_divider_whole_note_half(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 clock divider for whole note and a half.
+
+        Args:
+            value (int): The clock divider value (19-24, default 22).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 8, value)
+
+    @mcp.tool()
+    def set_lfo2_clock_divider_whole_note(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 clock divider for whole note.
+
+        Args:
+            value (int): The clock divider value (25-40, default 32).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 8, value)
+
+    @mcp.tool()
+    def set_lfo2_clock_divider_dotted_half_note(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 clock divider for dotted half note.
+
+        Args:
+            value (int): The clock divider value (31-36, default 34).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 8, value)
+
+    @mcp.tool()
+    def set_lfo2_clock_divider_whole_note_triplet(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 clock divider for whole note triplet.
+
+        Args:
+            value (int): The clock divider value (37-42, default 40).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 8, value)
+
+    @mcp.tool()
+    def set_lfo2_clock_divider_half_note(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 clock divider for half note.
+
+        Args:
+            value (int): The clock divider value (43-48, default 46).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 8, value)
+
+    @mcp.tool()
+    def set_lfo2_clock_divider_dotted_quarter_note_triplet(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 clock divider for dotted quarter note triplet.
+
+        Args:
+            value (int): The clock divider value (49-54, default 52).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 8, value)
+
+    @mcp.tool()
+    def set_lfo2_clock_divider_half_note_triplet(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 clock divider for half note triplet.
+
+        Args:
+            value (int): The clock divider value (55-60, default 58).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 8, value)
+
+    @mcp.tool()
+    def set_lfo2_clock_divider_quarter_note(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 clock divider for quarter note.
+
+        Args:
+            value (int): The clock divider value (61-67, default 64).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 8, value)
+
+    @mcp.tool()
+    def set_lfo2_clock_divider_dotted_eighth_note(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 clock divider for dotted eighth note.
+
+        Args:
+            value (int): The clock divider value (68-73, default 70).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 8, value)
+
+    @mcp.tool()
+    def set_lfo2_clock_divider_quarter_note_triplet(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 clock divider for quarter note triplet.
+
+        Args:
+            value (int): The clock divider value (74-79, default 76).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 8, value)
+
+    @mcp.tool()
+    def set_lfo2_clock_divider_eighth_note(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 clock divider for eighth note.
+
+        Args:
+            value (int): The clock divider value (80-85, default 82).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 8, value)
+
+    @mcp.tool()
+    def set_lfo2_clock_divider_dotted_sixteenth_note(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 clock divider for dotted sixteenth note.
+
+        Args:
+            value (int): The clock divider value (86-91, default 88).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 8, value)
+
+    @mcp.tool()
+    def set_lfo2_clock_divider_eighth_note_triplet(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 clock divider for eighth note triplet.
+
+        Args:
+            value (int): The clock divider value (92-97, default 94).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 8, value)
+
+    @mcp.tool()
+    def set_lfo2_clock_divider_sixteenth_note(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 clock divider for sixteenth note.
+
+        Args:
+            value (int): The clock divider value (98-103, default 100).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 8, value)
+
+    @mcp.tool()
+    def set_lfo2_clock_divider_sixteenth_note_triplet(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 clock divider for sixteenth note triplet.
+
+        Args:
+            value (int): The clock divider value (104-109, default 106).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 8, value)
+
+    @mcp.tool()
+    def set_lfo2_clock_divider_thirtysecond_note(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 clock divider for thirty-second note.
+
+        Args:
+            value (int): The clock divider value (110-115, default 112).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 8, value)
+
+    @mcp.tool()
+    def set_lfo2_clock_divider_thirtysecond_note_triplet(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 clock divider for thirty-second note triplet.
+
+        Args:
+            value (int): The clock divider value (116-121, default 118).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 8, value)
+
+    @mcp.tool()
+    def set_lfo2_clock_divider_sixtyfourth_note_triplet(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 clock divider for sixty-fourth note triplet.
+
+        Args:
+            value (int): The clock divider value (122-127, default 124).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 8, value)
+
+    @mcp.tool()
+    def set_lfo2_kb_reset(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 Keyboard Reset.
+
+        Args:
+            value (int): Value for keyboard reset (0 = OFF, 64 = ON).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 95, value)
