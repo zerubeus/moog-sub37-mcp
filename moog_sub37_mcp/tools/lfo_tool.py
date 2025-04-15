@@ -19,12 +19,22 @@ def register_lfo_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
     @mcp.tool()
     def set_lfo1_rate(value: int, channel: int = 3):  # type: ignore
         """
-        Set the LFO 1 Rate (NRPN 423, MSB 3, LSB 39).
+        Set the LFO 1 Rate (CC #3 [MSB], CC #35 [LSB]).
         Args:
-            value (int): Value for LFO 1 Rate (0-16383).
+            value (int): Value for LFO 1 Rate (0-127 for normal resolution, 0-16383 for high resolution).
             channel (int): MIDI channel (default is 3).
         """
-        midi.send_nrpn(channel, 3, 39, value)
+        midi.send_high_res_cc(channel, 3, 35, value)
+
+    @mcp.tool()
+    def set_lfo1_rate_normal(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 1 Rate using normal resolution (CC #3).
+        Args:
+            value (int): Value for LFO 1 Rate (0-127).
+            channel (int): MIDI channel (default is 3).
+        """
+        midi.send_cc(channel, 3, value)
 
     @mcp.tool()
     def set_lfo1_range(value: int, channel: int = 3):  # type: ignore
@@ -89,12 +99,22 @@ def register_lfo_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
     @mcp.tool()
     def set_lfo2_rate(value: int, channel: int = 3):  # type: ignore
         """
-        Set the LFO 2 Rate (NRPN 448, MSB 3, LSB 64).
+        Set the LFO 2 Rate (CC #8 [MSB], CC #40 [LSB]).
         Args:
-            value (int): Value for LFO 2 Rate (0-16383).
+            value (int): Value for LFO 2 Rate (0-127 for normal resolution, 0-16383 for high resolution).
             channel (int): MIDI channel (default is 3).
         """
-        midi.send_nrpn(channel, 3, 64, value)
+        midi.send_high_res_cc(channel, 8, 40, value)
+
+    @mcp.tool()
+    def set_lfo2_rate_normal(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the LFO 2 Rate using normal resolution (CC #8).
+        Args:
+            value (int): Value for LFO 2 Rate (0-127).
+            channel (int): MIDI channel (default is 3).
+        """
+        midi.send_cc(channel, 8, value)
 
     @mcp.tool()
     def set_lfo2_range(value: int, channel: int = 3):  # type: ignore
@@ -401,35 +421,62 @@ def register_lfo_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
     @mcp.tool()
     def set_mod1_pitch_amt(value: int, channel: int = 3):  # type: ignore
         """
-        Set the MOD 1 Pitch Amount with high resolution.
-
+        Set the MOD 1 Pitch Amount (CC #4 [MSB], CC #36 [LSB]).
         Args:
-            value (int): High-resolution value for MOD 1 Pitch Amount (0-16383).
-            channel (int): MIDI channel (default is 3 if not specified).
+            value (int): Value for MOD 1 Pitch Amount (0-127 for normal resolution, 0-16383 for high resolution).
+            channel (int): MIDI channel (default is 3).
         """
         midi.send_high_res_cc(channel, 4, 36, value)
 
     @mcp.tool()
+    def set_mod1_pitch_amt_normal(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the MOD 1 Pitch Amount using normal resolution (CC #4).
+        Args:
+            value (int): Value for MOD 1 Pitch Amount (0-127).
+            channel (int): MIDI channel (default is 3).
+        """
+        midi.send_cc(channel, 4, value)
+
+    @mcp.tool()
     def set_mod1_filter_amt(value: int, channel: int = 3):  # type: ignore
         """
-        Set the MOD 1 Filter Amount with high resolution.
-
+        Set the MOD 1 Filter Amount (CC #11 [MSB], CC #43 [LSB]).
         Args:
-            value (int): High-resolution value for MOD 1 Filter Amount (0-16383).
-            channel (int): MIDI channel (default is 3 if not specified).
+            value (int): Value for MOD 1 Filter Amount (0-127 for normal resolution, 0-16383 for high resolution).
+            channel (int): MIDI channel (default is 3).
         """
         midi.send_high_res_cc(channel, 11, 43, value)
 
     @mcp.tool()
+    def set_mod1_filter_amt_normal(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the MOD 1 Filter Amount using normal resolution (CC #11).
+        Args:
+            value (int): Value for MOD 1 Filter Amount (0-127).
+            channel (int): MIDI channel (default is 3).
+        """
+        midi.send_cc(channel, 11, value)
+
+    @mcp.tool()
     def set_mod1_pgm_dest_amt(value: int, channel: int = 3):  # type: ignore
         """
-        Set the MOD 1 Programmable Destination Amount with high resolution.
-
+        Set the MOD 1 PGM Dest Amount (CC #20 [MSB], CC #52 [LSB]).
         Args:
-            value (int): High-resolution value for MOD 1 Programmable Destination Amount (0-16383).
-            channel (int): MIDI channel (default is 3 if not specified).
+            value (int): Value for MOD 1 PGM Dest Amount (0-127 for normal resolution, 0-16383 for high resolution).
+            channel (int): MIDI channel (default is 3).
         """
         midi.send_high_res_cc(channel, 20, 52, value)
+
+    @mcp.tool()
+    def set_mod1_pgm_dest_amt_normal(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the MOD 1 PGM Dest Amount using normal resolution (CC #20).
+        Args:
+            value (int): Value for MOD 1 PGM Dest Amount (0-127).
+            channel (int): MIDI channel (default is 3).
+        """
+        midi.send_cc(channel, 20, value)
 
     @mcp.tool()
     def set_mod1_osc_1_2_sel(value: int, channel: int = 3):  # type: ignore

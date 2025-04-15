@@ -81,3 +81,25 @@ def register_global_tools(mcp: FastMCP, midi: MIDIManager):
             channel (int): MIDI channel (default is 3 if not specified).
         """
         midi.send_cc(channel, 122, value)
+
+    @mcp.tool()
+    def set_master_volume(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the Master Volume (normal resolution).
+
+        Args:
+            value (int): Value for Master Volume (0-127).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 7, value)
+
+    @mcp.tool()
+    def set_master_volume_high_res(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the Master Volume (high resolution).
+
+        Args:
+            value (int): High-resolution value for Master Volume (0-16383).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_high_res_cc(channel, 7, 39, value)

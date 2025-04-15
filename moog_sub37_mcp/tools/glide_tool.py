@@ -19,12 +19,22 @@ def register_glide_tools(mcp: FastMCP, midi: MIDIManager):
     @mcp.tool()
     def set_glide_time(value: int, channel: int = 3):  # type: ignore
         """
-        Set the Glide Time (NRPN 417, MSB 3, LSB 33).
+        Set the Glide Time (CC #5 [MSB], CC #37 [LSB]).
         Args:
-            value (int): Value for Glide Time (0-16383).
+            value (int): Value for Glide Time (0-127 for normal resolution, 0-16383 for high resolution).
             channel (int): MIDI channel (default is 3).
         """
-        midi.send_nrpn(channel, 3, 33, value)
+        midi.send_high_res_cc(channel, 5, 37, value)
+
+    @mcp.tool()
+    def set_glide_time_normal(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the Glide Time using normal resolution (CC #5).
+        Args:
+            value (int): Value for Glide Time (0-127).
+            channel (int): MIDI channel (default is 3).
+        """
+        midi.send_cc(channel, 5, value)
 
     @mcp.tool()
     def set_glide_osc(value: int, channel: int = 3):  # type: ignore
