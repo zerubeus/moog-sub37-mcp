@@ -155,3 +155,58 @@ class MIDIManager:
         except Exception as e:
             logger.error(f'Error sending high-res CC message: {e}')
             return False
+
+    def send_nrpn(self, channel: int, nrpn_msb: int, nrpn_lsb: int, value: int) -> bool:
+        """
+        Send a Non-Registered Parameter Number (NRPN) message with high resolution value.
+
+        Args:
+            channel: MIDI channel (1-16)
+            nrpn_msb: NRPN Most Significant Byte (CC 99 value, 0-127)
+            nrpn_lsb: NRPN Least Significant Byte (CC 98 value, 0-127)
+            value: High-resolution value for the parameter (0-16383)
+
+        Returns:
+            bool: True if message sent successfully, False otherwise.
+        """
+        if not self.connected or not self.output_port:
+            logger.error('Not connected to any MIDI port')
+            return False
+
+        # Convert 1-indexed channel to 0-indexed
+        if 1 <= channel <= 16:
+            channel = channel - 1
+        else:
+            logger.error(f'Invalid channel: {channel}. Must be between 1-16.')
+            return False
+
+        # Validate value range
+        if not 0 <= value <= 16383:
+            logger.error(f'Invalid NRPN value: {value}. Must be between 0-16383.')
+            return False
+
+        try:
+            # Split value into MSB and LSB
+            value_msb = (value >> 7) & 0x7F  # Most significant 7 bits
+            value_lsb = value & 0x7F  # Least significant 7 bits
+
+            # Send NRPN messages in the correct order:
+            # 1. NRPN MSB (CC 99)
+            # 2. NRPN LSB (CC 98)
+            # 3. Data Entry MSB (CC 6)
+            # 4. Data Entry LSB (CC 38)
+            msg_nrpn_msb = mido.Message('control_change', channel=channel, control=99, value=nrpn_msb)
+            msg_nrpn_lsb = mido.Message('control_change', channel=channel, control=98, value=nrpn_lsb)
+            msg_data_msb = mido.Message('control_change', channel=channel, control=6, value=value_msb)
+            msg_data_lsb = mido.Message('control_change', channel=channel, control=38, value=value_lsb)
+
+            self.output_port.send(msg_nrpn_msb)  # type: ignore[attr-defined]
+            self.output_port.send(msg_nrpn_lsb)  # type: ignore[attr-defined]
+            self.output_port.send(msg_data_msb)  # type: ignore[attr-defined]
+            self.output_port.send(msg_data_lsb)  # type: ignore[attr-defined]
+
+            logger.debug(f'Sent NRPN: channel={channel + 1}, nrpn_msb={nrpn_msb}, nrpn_lsb={nrpn_lsb}, value={value}')
+            return True
+        except Exception as e:
+            logger.error(f'Error sending NRPN message: {e}')
+            return False
