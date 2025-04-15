@@ -7,7 +7,7 @@ from mcp.server.fastmcp import FastMCP
 from moog_sub37_mcp.midi.midi_manager import MIDIManager
 
 
-def register_apm_tools(mcp: FastMCP, midi: MIDIManager):
+def register_amp_tools(mcp: FastMCP, midi: MIDIManager):
     """
     Register all AMP envelope tools with the MCP server.
 
