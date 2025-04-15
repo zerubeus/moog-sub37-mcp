@@ -1,14 +1,15 @@
 """
-Filter tools for controlling the multi-mode filter parameters on the Digitone.
+Filter tools for controlling filter and filter envelope parameters on the Moog Sub 37.
 """
 
-from moog_sub37_mcp.sub37.services.filter_controller import MultiModeFilterController
-from moog_sub37_mcp.sub37.config.config import digitone_config
+from mcp.server.fastmcp import FastMCP
+
+from moog_sub37_mcp.midi.midi_manager import MIDIManager
 
 
-def register_filter_tools(mcp, midi):
+def register_filter_tools(mcp: FastMCP, midi: MIDIManager):
     """
-    Register all filter tools with the MCP server.
+    Register all filter and filter envelope tools with the MCP server.
 
     Args:
         mcp: The MCP server instance
@@ -16,141 +17,199 @@ def register_filter_tools(mcp, midi):
     """
 
     @mcp.tool()
-    def set_multimode_filter_attack(value: int, track: int):
+    def set_filter_multidrive(value: int, channel: int = 3):  # type: ignore
         """
-        Set the attack time of the multi-mode filter envelope.
+        Set the Filter Multidrive with high resolution.
 
         Args:
-            value (int): Attack time value ranging from 0 to 127.
-                - 0 maps to 0
-                - 127 maps to 127
-                Display range: 0-127.
-                Default is 0.
-            track (int): The track number to set the filter attack for. 1-16
+            value (int): High-resolution value for Filter Multidrive (0-16383).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return MultiModeFilterController(
-            digitone_config.multi_mode_filter.parameters, midi, track
-        ).set_attack(value)
+        midi.send_high_res_cc(channel, 18, 50, value)
 
     @mcp.tool()
-    def set_multimode_filter_decay(value: int, track: int):
+    def set_filter_cutoff(value: int, channel: int = 3):  # type: ignore
         """
-        Set the decay time of the multi-mode filter envelope.
+        Set the Filter Cutoff with high resolution.
 
         Args:
-            value (int): Decay time value ranging from 0 to 127.
-                - 0 maps to 0
-                - 127 maps to 127
-                Display range: 0-127.
-                Default is 64.
-            track (int): The track number to set the filter decay for. 1-16
+            value (int): High-resolution value for Filter Cutoff (0-16383).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return MultiModeFilterController(
-            digitone_config.multi_mode_filter.parameters, midi, track
-        ).set_decay(value)
+        midi.send_high_res_cc(channel, 19, 51, value)
 
     @mcp.tool()
-    def set_multimode_filter_sustain(value: int, track: int):
+    def set_filter_resonance(value: int, channel: int = 3):  # type: ignore
         """
-        Set the sustain level of the multi-mode filter envelope.
+        Set the Filter Resonance with high resolution.
 
         Args:
-            value (int): Sustain level value ranging from 0 to 127.
-                - 0 maps to 0
-                - 127 maps to 127
-                Display range: 0-127.
-                Default is 0.
-            track (int): The track number to set the filter sustain for. 1-16
+            value (int): High-resolution value for Filter Resonance (0-16383).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return MultiModeFilterController(
-            digitone_config.multi_mode_filter.parameters, midi, track
-        ).set_sustain(value)
+        midi.send_high_res_cc(channel, 21, 53, value)
 
     @mcp.tool()
-    def set_multimode_filter_release(value: int, track: int):
+    def set_filter_kb_amt(value: int, channel: int = 3):  # type: ignore
         """
-        Set the release time of the multi-mode filter envelope.
+        Set the Filter Keyboard Amount with high resolution.
 
         Args:
-            value (int): Release time value ranging from 0 to 127.
-                - 0 maps to 0
-                - 127 maps to 127
-                Display range: 0-127.
-                Default is 64.
-            track (int): The track number to set the filter release for. 1-16
+            value (int): High-resolution value for Filter Keyboard Amount (0-16383).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return MultiModeFilterController(
-            digitone_config.multi_mode_filter.parameters, midi, track
-        ).set_release(value)
+        midi.send_high_res_cc(channel, 22, 54, value)
 
     @mcp.tool()
-    def set_multimode_filter_frequency(value: int, track: int):
+    def set_filter_eg_attack_time(value: int, channel: int = 3):  # type: ignore
         """
-        Set the cutoff frequency of the multi-mode filter.
+        Set the Filter EG Attack Time with high resolution.
 
         Args:
-            value (int): Cutoff frequency value ranging from 0 to 127.
-                - 0 maps to 0
-                - 127 maps to 127
-                Display range: 0-127.
-                Default is 127.
-            track (int): The track number to set the filter frequency for. 1-16
+            value (int): High-resolution value for Filter EG Attack Time (0-16383).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return MultiModeFilterController(
-            digitone_config.multi_mode_filter.parameters, midi, track
-        ).set_frequency(value)
+        midi.send_high_res_cc(channel, 23, 55, value)
 
     @mcp.tool()
-    def set_multimode_filter_resonance(value: int, track: int):
+    def set_filter_eg_decay_time(value: int, channel: int = 3):  # type: ignore
         """
-        Set the resonance of the multi-mode filter.
+        Set the Filter EG Decay Time with high resolution.
 
         Args:
-            value (int): Resonance value ranging from 0 to 127.
-                - 0 maps to 0
-                - 127 maps to 127
-                Display range: 0-127.
-                Default is 0.
-            track (int): The track number to set the filter resonance for. 1-16
+            value (int): High-resolution value for Filter EG Decay Time (0-16383).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return MultiModeFilterController(
-            digitone_config.multi_mode_filter.parameters, midi, track
-        ).set_resonance(value)
+        midi.send_high_res_cc(channel, 24, 56, value)
 
     @mcp.tool()
-    def set_multimode_filter_type(value: int, track: int):
+    def set_filter_eg_sustain_time(value: int, channel: int = 3):  # type: ignore
         """
-        Set the type of the multi-mode filter.
+        Set the Filter EG Sustain Time with high resolution.
 
         Args:
-            value (int): Filter type value ranging from 0 to 127.
-                - 0   = Lowpass
-                - 64  = EQ
-                - 127 = Highpass
-                Values between these points represent transitions between filter types.
-                Display range: continuous.
-                Default is 0 (Lowpass).
-            track (int): The track number to set the filter type for. 1-16
+            value (int): High-resolution value for Filter EG Sustain Time (0-16383).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return MultiModeFilterController(
-            digitone_config.multi_mode_filter.parameters, midi, track
-        ).set_type(value)
+        midi.send_high_res_cc(channel, 25, 57, value)
 
     @mcp.tool()
-    def set_multimode_filter_envelope_depth(value: int, track: int):
+    def set_filter_eg_release_time(value: int, channel: int = 3):  # type: ignore
         """
-        Set the envelope depth of the multi-mode filter.
+        Set the Filter EG Release Time with high resolution.
 
         Args:
-            value (int): Envelope depth value ranging from 0 to 127.
-                - 0 maps to -64
-                - 64 maps to 0
-                - 127 maps to +64
-                Values in between are linearly mapped.
-                Display range: -64 to +64.
-                Default is 0.
-            track (int): The track number to set the filter envelope depth for. 1-16
+            value (int): High-resolution value for Filter EG Release Time (0-16383).
+            channel (int): MIDI channel (default is 3 if not specified).
         """
-        return MultiModeFilterController(
-            digitone_config.multi_mode_filter.parameters, midi, track
-        ).set_envelope_depth(value)
+        midi.send_high_res_cc(channel, 26, 58, value)
+
+    @mcp.tool()
+    def set_filter_eg_amt(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the Filter EG Amount with high resolution.
+
+        Args:
+            value (int): High-resolution value for Filter EG Amount (0-16383).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_high_res_cc(channel, 27, 59, value)
+
+    @mcp.tool()
+    def set_filter_eg_kb_amt(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the Filter EG Keyboard Amount.
+
+        Args:
+            value (int): Value for Filter EG Keyboard Amount (0-127).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 79, value)
+
+    @mcp.tool()
+    def set_amp_eg_kb_amt(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the AMP EG Keyboard Amount.
+
+        Args:
+            value (int): Value for AMP EG Keyboard Amount (0-127).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 80, value)
+
+    @mcp.tool()
+    def set_filter_eg_reset(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the Filter EG Reset.
+
+        Args:
+            value (int): Value for Filter EG Reset (0 = OFF, 64 = ON).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 82, value)
+
+    @mcp.tool()
+    def set_amp_eg_reset(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the AMP EG Reset.
+
+        Args:
+            value (int): Value for AMP EG Reset (0 = OFF, 64 = ON).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 83, value)
+
+    @mcp.tool()
+    def set_filter_eg_vel_amt(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the Filter EG Velocity Amount.
+
+        Args:
+            value (int): Value for Filter EG Velocity Amount (0-127).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 86, value)
+
+    @mcp.tool()
+    def set_amp_eg_vel_amt(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the AMP EG Velocity Amount.
+
+        Args:
+            value (int): Value for AMP EG Velocity Amount (0-127).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 87, value)
+
+    @mcp.tool()
+    def set_filter_eg_delay(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the Filter EG Delay.
+
+        Args:
+            value (int): Value for Filter EG Delay (0-127).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 103, value)
+
+    @mcp.tool()
+    def set_amp_eg_delay(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the AMP EG Delay.
+
+        Args:
+            value (int): Value for AMP EG Delay (0-127).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 104, value)
+
+    @mcp.tool()
+    def set_filter_eg_hold(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the Filter EG Hold.
+
+        Args:
+            value (int): Value for Filter EG Hold (0-127).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 105, value)
