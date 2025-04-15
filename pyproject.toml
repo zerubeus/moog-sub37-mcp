@@ -36,19 +36,12 @@ dependencies = [
 "Bug Tracker" = "https://github.com/zerubeus/moog-sub37-mcp/issues"
 
 [dependency-groups]
-dev = [
-    "black>=25.1.0",
-    "colorlog>=6.9.0",
-    "inline-snapshot>=0.20.9",
-    "pytest>=8.3.5",
-    "pyright>=1.1.390",
-    "ruff>=0.6.9",
-]
+dev = ["black>=25.1.0", "colorlog>=6.9.0", "pyright>=1.1.390", "ruff>=0.6.9"]
 
 [tool.ruff]
 line-length = 120
 target-version = "py39"
-include = ["moog_sub37_mcp/**/*.py", "tests/**/*.py"]
+include = ["moog_sub37_mcp/**/*.py"]
 
 [tool.ruff.lint]
 extend-select = [
@@ -81,13 +74,10 @@ convention = "google"
 "typing.TypedDict".msg = "Use typing_extensions.TypedDict instead."
 
 [tool.ruff.format]
-# don't format python in docstrings, pytest-examples takes care of it
-docstring-code-format = false
 quote-style = "single"
 
 [tool.ruff.lint.per-file-ignores]
 "moog_sub37_mcp/**/*.py" = ["D", "TID251"]
-"tests/**/*.py" = ["D"]
 
 [tool.pyright]
 pythonVersion = "3.12"
@@ -96,46 +86,8 @@ reportMissingTypeStubs = false
 reportUnnecessaryIsInstance = false
 reportUnnecessaryTypeIgnoreComment = true
 reportMissingModuleSource = false
-include = ["moog_sub37_mcp", "tests"]
+include = ["moog_sub37_mcp"]
 venvPath = ".venv"
-# see https://github.com/microsoft/pyright/issues/7771 - we don't want to error on decorated functions in tests
-# which are not otherwise used
-executionEnvironments = [
-    { root = "tests", reportUnusedFunction = false, reportPrivateImportUsage = false },
-]
-
-[tool.pytest.ini_options]
-testpaths = "tests"
-xfail_strict = true
-filterwarnings = ["error"]
-
-# https://coverage.readthedocs.io/en/latest/config.html#run
-[tool.coverage.run]
-include = ["moog_sub37_mcp/**/*.py", "tests/**/*.py"]
-branch = true
-
-# https://coverage.readthedocs.io/en/latest/config.html#report
-[tool.coverage.report]
-skip_covered = true
-show_missing = true
-ignore_errors = true
-precision = 2
-exclude_lines = [
-    'pragma: no cover',
-    'raise NotImplementedError',
-    'if TYPE_CHECKING:',
-    'if typing.TYPE_CHECKING:',
-    '@overload',
-    '@deprecated',
-    '@typing.overload',
-    '@abstractmethod',
-    '\(Protocol\):$',
-    'typing.assert_never',
-    '$\s*assert_never\(',
-    'if __name__ == .__main__.:',
-    'except ImportError as _import_error:',
-    '$\s*pass$',
-]
 
 [build-system]
 requires = ["hatchling", "uv-dynamic-versioning>=0.7.0"]
@@ -148,7 +100,7 @@ source = "uv-dynamic-versioning"
 only-include = ["/README.md"]
 
 [tool.hatch.build.targets.sdist]
-include = ["/README.md", "/Makefile", "/tests"]
+include = ["/README.md", "/Makefile"]
 
 [tool.uv-dynamic-versioning]
 vcs = "git"
