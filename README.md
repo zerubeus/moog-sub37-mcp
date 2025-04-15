@@ -1,25 +1,47 @@
 # Moog Sub37 MCP
 
-A Model Context Protocol (MCP) server that allows Claude and other MCP-compatible LLMs to interact with and control Moog Sub37 Monophonic Synthesizer via MIDI.
+A Model Context Protocol (MCP) server that allows Claude and other MCP-compatible LLMs to interact with and control the Moog Sub37/Subsequent37 analog synthesizer via MIDI. This integration enables AI-assisted sound design and parameter control of this legendary Moog synthesizer.
 
-#### A web-based version of this MCP server can be found at [senthgenie.com](https://www.synthgenie.com/). (You can ask for API key for free on discord)
+## About the Moog Sub37/Subsequent37
 
-#### If you want help or would like to contribute to development, please join our [Discord community](https://discord.gg/ZFuSuegBMS).
+The Moog Sub37/Subsequent37 is a powerful analog synthesizer featuring:
 
-# Prompt examples
+- 2 oscillators with sub oscillators
+- Classic Moog ladder filter
+- Dual LFOs
+- Extensive modulation options
+- 256 preset memory
+- 37-key keyboard with velocity and aftertouch
+- Mono and Duo (paraphonic) modes
+- Built-in arpeggiator and step sequencer
+
+# Prompt Examples
 
 ```
-"Use Sub37 MCP to design an evolving dark pad."
-"Use Sub37 MCP to design a Dark thick bass line."
+"Design a deep, resonant bass patch using the Moog filter's self-oscillation"
+"Create an evolving pad sound using both oscillators in Duo mode"
+"Program a sequence that showcases the Sub37's classic Moog lead sound"
+"Design a dark atmospheric sound using the Sub37's modulation capabilities"
+"Create a punchy bass sound perfect for techno using the multidrive circuit"
 ```
 
 ## Features
 
-- [x] Complete MIDI control interface for the Moog Sub37 Monophonic Synthesizer
+- [x] Complete MIDI control interface for all Sub37/Subsequent37 parameters
+- [x] Support for both Sub37 and Subsequent37 models
+- [x] Access to all synthesis parameters:
+  - Oscillator controls (waveform, pitch, sync)
+  - Filter controls (cutoff, resonance, envelope amount)
+  - Envelope generators
+  - LFO settings
+  - Modulation routing
+  - Arpeggiator/Sequencer parameters
+- [x] Preset management
+- [x] Real-time parameter automation
 
 ## Demo
 
-Watch Claude control the Moog Sub37 Monophonic Synthesizer in real-time:
+Watch Claude control the Moog Sub37/Subsequent37 in real-time:
 
 [![Claude controlling Moog Sub37](https://img.youtube.com/vi/EXf6lOTjla8/0.jpg)](https://www.youtube.com/watch?v=EXf6lOTjla8)
 
@@ -27,14 +49,14 @@ Watch Claude control the Moog Sub37 Monophonic Synthesizer in real-time:
 
 ### Prerequisites
 
-- Python 3.10+
+- Python 3.12+
 - [uv](https://github.com/astral-sh/uv) for package management
-- An Moog Sub37 Monophonic Synthesizer connected via USB
+- A Moog Sub37 or Subsequent37 synthesizer connected via USB
 - Claude Desktop app (for full integration)
 
 ### Installing Dependencies
 
-uv is mandatory for this project so start by installing it:
+uv is mandatory for this project. Start by installing it:
 
 #### For macOS:
 
@@ -46,11 +68,11 @@ brew install uv
 
 Follow the instructions [here](https://docs.astral.sh/uv/getting-started/installation/)
 
-### 3. Installing with Claude Desktop
+### Installing with Claude Desktop
 
 To use with Claude AI, add the MCP server configuration in Claude Desktop:
 
-⚠️ **Important**: You don't need to clone the repository or install the packages, all you need is to add the MCP server configuration to your claude_desktop_config.json file the MPC server is already published on pypi.
+⚠️ **Important**: You don't need to clone the repository or install the packages manually. The MCP server is published on PyPI and can be installed automatically.
 
 Go to Claude > Settings > Developer > Edit Config > claude_desktop_config.json to include the following:
 
@@ -67,21 +89,37 @@ Go to Claude > Settings > Developer > Edit Config > claude_desktop_config.json t
 
 ## Architecture
 
-- **Base Controllers**: Common functionality abstracted into base classes
-- **Specialized Controllers**: Dedicated controllers for each synth engine and module
-- **MCP Tools**: Direct interface between LLMs and the synth's parameters
-- **MIDI Interface**: Reliable communication with Sub37 hardware
+The MCP server is designed to provide comprehensive control over the Sub37/Subsequent37:
+
+- **Parameter Control**: Direct access to all synthesizer parameters via MIDI CC messages
+- **Preset Management**: Load, save, and modify presets
+- **Real-time Control**: Immediate response to parameter changes
+- **MIDI Implementation**: Complete MIDI specification support
+- **Error Handling**: Robust error handling for MIDI communication
 
 ## Implementation Details
 
-This library uses:
+This library leverages:
 
 - **FastMCP**: For exposing synth controls to LLMs
-- **Pydantic models**: For data validation, serialization, and type safety
-- **mido**: For MIDI communication
+- **Pydantic Models**: For parameter validation and type safety
+- **mido**: For reliable MIDI communication with the synthesizer
+- **Dynamic Versioning**: Automatic version management for releases
 
 ## Use Cases
 
-- Allow Claude and other LLMs to create and modify sounds on the Sub37
-- Programmatically control Sub37 parameters for automated sound design
-- Bridge between AI-generated music and hardware synthesis
+- **AI-Assisted Sound Design**: Let Claude help you create new sounds and explore the synth's capabilities
+- **Automated Parameter Control**: Program complex parameter changes for evolving sounds
+- **Preset Management**: Organize and modify your preset library
+- **Live Performance**: Control the synth in real-time with AI assistance
+- **Educational Tool**: Learn about synthesis through interactive AI guidance
+
+## Community and Support
+
+- Join our [Discord community](https://discord.gg/ZFuSuegBMS) for help and discussion
+- Visit [synthgenie.com](https://www.synthgenie.com/) for the web-based version (API key available for free on Discord)
+- Report issues and contribute on GitHub
+
+## License
+
+MIT License - See LICENSE file for details
