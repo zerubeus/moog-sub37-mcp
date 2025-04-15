@@ -1,5 +1,5 @@
 """
-ARP NRPN tools for controlling arpeggiator parameters on the Moog Sub 37.
+ARP tools for controlling arpeggiator parameters on the Moog Sub 37.
 """
 
 from mcp.server.fastmcp import FastMCP
@@ -7,9 +7,9 @@ from mcp.server.fastmcp import FastMCP
 from moog_sub37_mcp.midi.midi_manager import MIDIManager
 
 
-def register_arp_nrpn_tools(mcp: FastMCP, midi: MIDIManager):
+def register_arp_tools(mcp: FastMCP, midi: MIDIManager):
     """
-    Register all ARP NRPN tools with the MCP server.
+    Register all ARP tools with the MCP server.
 
     Args:
         mcp: The MCP server instance
@@ -17,7 +17,7 @@ def register_arp_nrpn_tools(mcp: FastMCP, midi: MIDIManager):
     """
 
     @mcp.tool()
-    def set_mod_wheel_nrpn(value: int, channel: int = 3):  # type: ignore
+    def set_mod_wheel(value: int, channel: int = 3):  # type: ignore
         """
         Set the MOD WHEEL (NRPN 402, MSB 3, LSB 18).
         Args:
@@ -27,7 +27,7 @@ def register_arp_nrpn_tools(mcp: FastMCP, midi: MIDIManager):
         midi.send_nrpn(channel, 3, 18, value)
 
     @mcp.tool()
-    def set_arp_rate_nrpn(value: int, channel: int = 3):  # type: ignore
+    def set_arp_rate(value: int, channel: int = 3):  # type: ignore
         """
         Set the ARP Rate (NRPN 403, MSB 3, LSB 19).
         Args:
@@ -37,7 +37,7 @@ def register_arp_nrpn_tools(mcp: FastMCP, midi: MIDIManager):
         midi.send_nrpn(channel, 3, 19, value)
 
     @mcp.tool()
-    def set_arp_sync_nrpn(value: int, channel: int = 3):  # type: ignore
+    def set_arp_sync(value: int, channel: int = 3):  # type: ignore
         """
         Set the ARP Sync (NRPN 404, MSB 3, LSB 20).
         Args:
@@ -47,7 +47,7 @@ def register_arp_nrpn_tools(mcp: FastMCP, midi: MIDIManager):
         midi.send_nrpn(channel, 3, 20, value)
 
     @mcp.tool()
-    def set_arp_range_nrpn(value: int, channel: int = 3):  # type: ignore
+    def set_arp_range(value: int, channel: int = 3):  # type: ignore
         """
         Set the ARP Range (NRPN 405, MSB 3, LSB 21).
         Args:
@@ -57,7 +57,7 @@ def register_arp_nrpn_tools(mcp: FastMCP, midi: MIDIManager):
         midi.send_nrpn(channel, 3, 21, value)
 
     @mcp.tool()
-    def set_arp_back_forth_nrpn(value: int, channel: int = 3):  # type: ignore
+    def set_arp_back_forth(value: int, channel: int = 3):  # type: ignore
         """
         Set the ARP Back Forth (NRPN 406, MSB 3, LSB 22).
         Args:
@@ -67,7 +67,7 @@ def register_arp_nrpn_tools(mcp: FastMCP, midi: MIDIManager):
         midi.send_nrpn(channel, 3, 22, value)
 
     @mcp.tool()
-    def set_arp_bf_mode_nrpn(value: int, channel: int = 3):  # type: ignore
+    def set_arp_bf_mode(value: int, channel: int = 3):  # type: ignore
         """
         Set the ARP BF Mode (NRPN 407, MSB 3, LSB 23).
         Args:
@@ -77,7 +77,7 @@ def register_arp_nrpn_tools(mcp: FastMCP, midi: MIDIManager):
         midi.send_nrpn(channel, 3, 23, value)
 
     @mcp.tool()
-    def set_arp_invert_nrpn(value: int, channel: int = 3):  # type: ignore
+    def set_arp_invert(value: int, channel: int = 3):  # type: ignore
         """
         Set the ARP Invert (NRPN 408, MSB 3, LSB 24).
         Args:
@@ -87,7 +87,7 @@ def register_arp_nrpn_tools(mcp: FastMCP, midi: MIDIManager):
         midi.send_nrpn(channel, 3, 24, value)
 
     @mcp.tool()
-    def set_arp_pattern_nrpn(value: int, channel: int = 3):  # type: ignore
+    def set_arp_pattern(value: int, channel: int = 3):  # type: ignore
         """
         Set the ARP Pattern (NRPN 409, MSB 3, LSB 25).
         Args:
@@ -97,7 +97,7 @@ def register_arp_nrpn_tools(mcp: FastMCP, midi: MIDIManager):
         midi.send_nrpn(channel, 3, 25, value)
 
     @mcp.tool()
-    def set_arp_run_nrpn(value: int, channel: int = 3):  # type: ignore
+    def set_arp_run(value: int, channel: int = 3):  # type: ignore
         """
         Set the ARP Run (NRPN 410, MSB 3, LSB 26).
         Args:
@@ -107,7 +107,7 @@ def register_arp_nrpn_tools(mcp: FastMCP, midi: MIDIManager):
         midi.send_nrpn(channel, 3, 26, value)
 
     @mcp.tool()
-    def set_arp_latch_nrpn(value: int, channel: int = 3):  # type: ignore
+    def set_arp_latch(value: int, channel: int = 3):  # type: ignore
         """
         Set the ARP Latch (NRPN 411, MSB 3, LSB 27).
         Args:
@@ -117,7 +117,7 @@ def register_arp_nrpn_tools(mcp: FastMCP, midi: MIDIManager):
         midi.send_nrpn(channel, 3, 27, value)
 
     @mcp.tool()
-    def set_arp_gate_len_nrpn(value: int, channel: int = 3):  # type: ignore
+    def set_arp_gate_len(value: int, channel: int = 3):  # type: ignore
         """
         Set the ARP Gate Length (NRPN 412, MSB 3, LSB 28).
         Args:
@@ -127,7 +127,7 @@ def register_arp_nrpn_tools(mcp: FastMCP, midi: MIDIManager):
         midi.send_nrpn(channel, 3, 28, value)
 
     @mcp.tool()
-    def set_arp_clk_div_nrpn(value: int, channel: int = 3):  # type: ignore
+    def set_arp_clk_div(value: int, channel: int = 3):  # type: ignore
         """
         Set the ARP Clock Divider (NRPN 413, MSB 3, LSB 29).
         Args:
@@ -137,7 +137,7 @@ def register_arp_nrpn_tools(mcp: FastMCP, midi: MIDIManager):
         midi.send_nrpn(channel, 3, 29, value)
 
     @mcp.tool()
-    def set_arp_step1_reset_nrpn(value: int, channel: int = 3):  # type: ignore
+    def set_arp_step1_reset(value: int, channel: int = 3):  # type: ignore
         """
         Set the ARP Step 1 Reset (NRPN 416, MSB 3, LSB 32).
         Args:
