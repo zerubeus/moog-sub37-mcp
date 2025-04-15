@@ -103,3 +103,24 @@ def register_global_tools(mcp: FastMCP, midi: MIDIManager):
             channel (int): MIDI channel (default is 3 if not specified).
         """
         midi.send_high_res_cc(channel, 7, 39, value)
+
+    @mcp.tool()
+    def set_kb_transpose(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the Keyboard Transpose.
+
+        Args:
+            value (int): Value for Keyboard Transpose (-12 to +13 semitones, receive only).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 119, value)
+
+    @mcp.tool()
+    def all_notes_off(channel: int = 3):  # type: ignore
+        """
+        Send All Notes Off message.
+
+        Args:
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 123, 0)

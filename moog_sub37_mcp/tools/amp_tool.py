@@ -70,3 +70,14 @@ def register_amp_tools(mcp: FastMCP, midi: MIDIManager):
             channel (int): MIDI channel (default is 3 if not specified).
         """
         midi.send_cc(channel, 106, value)
+
+    @mcp.tool()
+    def set_amp_eg_multi_trig(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the AMP EG Multi Trigger.
+
+        Args:
+            value (int): Value for AMP EG Multi Trigger (0 = OFF, 64 = ON).
+            channel (int): MIDI channel (default is 3 if not specified).
+        """
+        midi.send_cc(channel, 113, value)
