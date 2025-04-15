@@ -17,6 +17,8 @@ The Moog Sub37/Subsequent37 is a powerful analog synthesizer featuring:
 
 # Prompt Examples
 
+Prompt should start with "use Moog sub37 MCP to ..."
+
 ```
 "Design a deep, resonant bass patch using the Moog filter's self-oscillation on midi channel 3"
 "Create an evolving pad sound using both oscillators in Duo mode on midi channel 3"
