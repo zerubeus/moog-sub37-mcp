@@ -10,16 +10,8 @@
 
 .PHONY: install
 install: .uv .pre-commit ## Install the package, dependencies, and pre-commit for local development
-	uv sync --frozen --all-extras --all-packages --group dev
+	uv sync
 	pre-commit install --install-hooks
-
-.PHONY: install-all-python
-install-all-python: ## Install and synchronize an interpreter for every python version
-	UV_PROJECT_ENVIRONMENT=.venv uv sync --python 3.12 --frozen --all-extras --all-packages --group dev
-
-.PHONY: sync
-sync: .uv ## Update local packages and uv.lock
-	uv sync --all-extras --all-packages --group dev
 
 .PHONY: format
 format: ## Format the code

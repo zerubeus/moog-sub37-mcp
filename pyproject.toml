@@ -72,6 +72,8 @@ quote-style = "single"
 
 [tool.ruff.lint.per-file-ignores]
 "moog_sub37_mcp/**/*.py" = ["D", "TID251"]
+"moog_sub37_mcp/tools/filter_tool.py" = ["D", "TID251", "C901"]
+"moog_sub37_mcp/tools/mod_tool.py" = ["D", "TID251", "C901"]
 
 [tool.pyright]
 pythonVersion = "3.12"
