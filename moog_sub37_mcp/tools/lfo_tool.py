@@ -99,12 +99,12 @@ def register_lfo_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
     @mcp.tool()
     def set_lfo2_rate(value: int, channel: int = 3):  # type: ignore
         """
-        Set the LFO 2 Rate (CC #8 [MSB], CC #40 [LSB]).
+        Set the LFO 2 Rate (NRPN 448, MSB 3, LSB 64).
         Args:
-            value (int): Value for LFO 2 Rate (0-127 for normal resolution, 0-16383 for high resolution).
+            value (int): Value for LFO 2 Rate (0-16383).
             channel (int): MIDI channel (default is 3).
         """
-        midi.send_high_res_cc(channel, 8, 40, value)
+        midi.send_nrpn(channel, 3, 64, value)
 
     @mcp.tool()
     def set_lfo2_rate_normal(value: int, channel: int = 3):  # type: ignore
@@ -421,12 +421,12 @@ def register_lfo_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
     @mcp.tool()
     def set_mod1_pitch_amt(value: int, channel: int = 3):  # type: ignore
         """
-        Set the MOD 1 Pitch Amount (CC #4 [MSB], CC #36 [LSB]).
+        Set the MOD 1 Pitch Amount (NRPN 445, MSB 3, LSB 61).
         Args:
-            value (int): Value for MOD 1 Pitch Amount (0-127 for normal resolution, 0-16383 for high resolution).
+            value (int): Value for MOD 1 Pitch Amount (0-16383).
             channel (int): MIDI channel (default is 3).
         """
-        midi.send_high_res_cc(channel, 4, 36, value)
+        midi.send_nrpn(channel, 3, 61, value)
 
     @mcp.tool()
     def set_mod1_pitch_amt_normal(value: int, channel: int = 3):  # type: ignore
@@ -441,12 +441,12 @@ def register_lfo_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
     @mcp.tool()
     def set_mod1_filter_amt(value: int, channel: int = 3):  # type: ignore
         """
-        Set the MOD 1 Filter Amount (CC #11 [MSB], CC #43 [LSB]).
+        Set the MOD 1 Filter Amount (NRPN 446, MSB 3, LSB 62).
         Args:
-            value (int): Value for MOD 1 Filter Amount (0-127 for normal resolution, 0-16383 for high resolution).
+            value (int): Value for MOD 1 Filter Amount (0-16383).
             channel (int): MIDI channel (default is 3).
         """
-        midi.send_high_res_cc(channel, 11, 43, value)
+        midi.send_nrpn(channel, 3, 62, value)
 
     @mcp.tool()
     def set_mod1_filter_amt_normal(value: int, channel: int = 3):  # type: ignore
@@ -459,14 +459,14 @@ def register_lfo_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
         midi.send_cc(channel, 11, value)
 
     @mcp.tool()
-    def set_mod1_pgm_dest_amt(value: int, channel: int = 3):  # type: ignore
+    def set_mod1_pgm_amt(value: int, channel: int = 3):  # type: ignore
         """
-        Set the MOD 1 PGM Dest Amount (CC #20 [MSB], CC #52 [LSB]).
+        Set the MOD 1 PGM Amount (NRPN 444, MSB 3, LSB 60).
         Args:
-            value (int): Value for MOD 1 PGM Dest Amount (0-127 for normal resolution, 0-16383 for high resolution).
+            value (int): Value for MOD 1 PGM Amount (0-16383).
             channel (int): MIDI channel (default is 3).
         """
-        midi.send_high_res_cc(channel, 20, 52, value)
+        midi.send_nrpn(channel, 3, 60, value)
 
     @mcp.tool()
     def set_mod1_pgm_dest_amt_normal(value: int, channel: int = 3):  # type: ignore
@@ -492,24 +492,67 @@ def register_lfo_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
     @mcp.tool()
     def set_mod1_source(value: int, channel: int = 3):  # type: ignore
         """
-        Set the MOD 1 Source selection.
-
+        Set the MOD 1 Source (NRPN 440, MSB 3, LSB 56).
         Args:
-            value (int): Value for source selection (0 = TRIANGLE LFO, 21 = SQUARE LFO, 43 = SAW LFO, 64 = RAMP LFO, 85 = S&H LFO, 107 = F.EG/PGM).
-            channel (int): MIDI channel (default is 3 if not specified).
+            value (int): Value for MOD 1 SOURCE (0-6):
+                0 = TRIANGLE LFO
+                1 = SQUARE LFO
+                2 = SAW LFO
+                3 = RAMP LFO
+                4 = S&H LFO
+                5 = F.EG/PGM
+                6 = Reserved
+            channel (int): MIDI channel (default is 3).
         """
-        midi.send_cc(channel, 71, value)
+        midi.send_nrpn(channel, 3, 56, value)
+
+    @mcp.tool()
+    def set_mod1_pgm_src(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the MOD 1 PGM SRC (NRPN 441, MSB 3, LSB 57).
+        Args:
+            value (int): Value for MOD 1 PGM SRC (0-8).
+            channel (int): MIDI channel (default is 3).
+        """
+        midi.send_nrpn(channel, 3, 57, value)
 
     @mcp.tool()
     def set_mod1_dest(value: int, channel: int = 3):  # type: ignore
         """
-        Set the MOD 1 Destination selection.
-
+        Set the MOD 1 DEST (NRPN 442, MSB 3, LSB 58).
         Args:
-            value (int): Value for destination selection (0 = LF02 Rate, 18 = VCA Level, 37 = OSC1 Wave, 55 = OSC1 + OSC2 Wave, 73 = OSC2 Wave, 91 = Noise Level, 110 = EG Time/PGM).
-            channel (int): MIDI channel (default is 3 if not specified).
+            value (int): Value for MOD 1 DEST (0-7):
+                0 = LF02 Rate
+                1 = VCA Level
+                2 = OSC1 Wave
+                3 = OSC1 + OSC2 Wave
+                4 = OSC2 Wave
+                5 = Noise Level
+                6 = EG Time/PGM
+                7 = Reserved
+            channel (int): MIDI channel (default is 3).
         """
-        midi.send_cc(channel, 91, value)
+        midi.send_nrpn(channel, 3, 58, value)
+
+    @mcp.tool()
+    def set_mod1_pgm_dest(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the MOD 1 PGM DEST (NRPN 443, MSB 3, LSB 59).
+        Args:
+            value (int): Value for MOD 1 PGM DEST (0-89).
+            channel (int): MIDI channel (default is 3).
+        """
+        midi.send_nrpn(channel, 3, 59, value)
+
+    @mcp.tool()
+    def set_mod1_pitch_dest(value: int, channel: int = 3):  # type: ignore
+        """
+        Set the MOD 1 PITCH DEST (NRPN 447, MSB 3, LSB 63).
+        Args:
+            value (int): Value for MOD 1 PITCH DEST (0-3).
+            channel (int): MIDI channel (default is 3).
+        """
+        midi.send_nrpn(channel, 3, 63, value)
 
     @mcp.tool()
     def set_lfo2_clock_divider_4_whole_notes(value: int, channel: int = 3):  # type: ignore
@@ -743,9 +786,9 @@ def register_lfo_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
         midi.send_cc(channel, 8, value)
 
     @mcp.tool()
-    def set_lfo2_kb_reset(value: int, channel: int = 3):  # type: ignore
+    def set_lfo2_kb_reset_cc(value: int, channel: int = 3):  # type: ignore
         """
-        Set the LFO 2 Keyboard Reset.
+        Set the LFO 2 Keyboard Reset using CC method.
 
         Args:
             value (int): Value for keyboard reset (0 = OFF, 64 = ON).
@@ -754,9 +797,9 @@ def register_lfo_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
         midi.send_cc(channel, 95, value)
 
     @mcp.tool()
-    def set_lfo2_range(value: int, channel: int = 3):  # type: ignore
+    def set_lfo2_range_cc(value: int, channel: int = 3):  # type: ignore
         """
-        Set the LFO 2 Range selection.
+        Set the LFO 2 Range selection using CC method.
 
         Args:
             value (int): Value for range selection (0 = Low Range, 43 = Med Range, 85 = Hi Range).

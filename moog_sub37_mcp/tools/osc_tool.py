@@ -61,9 +61,9 @@ def register_osc_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
         midi.send_high_res_cc(channel, 14, 46, value)
 
     @mcp.tool()
-    def set_mod2_pitch_amt(value: int, channel: int = 3):  # type: ignore
+    def set_mod2_pitch_amt_cc(value: int, channel: int = 3):  # type: ignore
         """
-        Set the MOD 2 Pitch Amount with high resolution.
+        Set the MOD 2 Pitch Amount using high-res CC method (CC #15 [MSB], CC #47 [LSB]).
 
         Args:
             value (int): High-resolution value for MOD 2 Pitch Amount (0-16383).
@@ -72,9 +72,9 @@ def register_osc_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
         midi.send_high_res_cc(channel, 15, 47, value)
 
     @mcp.tool()
-    def set_mod2_filter_amt(value: int, channel: int = 3):  # type: ignore
+    def set_mod2_filter_amt_cc(value: int, channel: int = 3):  # type: ignore
         """
-        Set the MOD 2 Filter Amount with high resolution.
+        Set the MOD 2 Filter Amount using high-res CC method (CC #16 [MSB], CC #48 [LSB]).
 
         Args:
             value (int): High-resolution value for MOD 2 Filter Amount (0-16383).
@@ -83,9 +83,9 @@ def register_osc_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
         midi.send_high_res_cc(channel, 16, 48, value)
 
     @mcp.tool()
-    def set_mod2_pgm_dest_amt(value: int, channel: int = 3):  # type: ignore
+    def set_mod2_pgm_dest_amt_cc(value: int, channel: int = 3):  # type: ignore
         """
-        Set the MOD 2 Programmable Destination Amount with high resolution.
+        Set the MOD 2 Programmable Destination Amount using high-res CC method (CC #17 [MSB], CC #49 [LSB]).
 
         Args:
             value (int): High-resolution value for MOD 2 Programmable Destination Amount (0-16383).
@@ -94,9 +94,9 @@ def register_osc_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
         midi.send_high_res_cc(channel, 17, 49, value)
 
     @mcp.tool()
-    def set_mod2_source(value: int, channel: int = 3):  # type: ignore
+    def set_mod2_source_cc(value: int, channel: int = 3):  # type: ignore
         """
-        Set the MOD 2 Source selection.
+        Set the MOD 2 Source selection using CC method (CC #72).
 
         Args:
             value (int): Value for source selection (0 = TRIANGLE LFO, 21 = SQUARE LFO, 43 = SAW LFO, 64 = RAMP LFO, 85 = S&H LFO, 107 = F.EG/PGM).
@@ -156,9 +156,9 @@ def register_osc_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
         midi.send_cc(channel, 88, value)
 
     @mcp.tool()
-    def set_mod2_dest(value: int, channel: int = 3):  # type: ignore
+    def set_mod2_dest_cc(value: int, channel: int = 3):  # type: ignore
         """
-        Set the MOD 2 Destination selection.
+        Set the MOD 2 Destination selection using CC method (CC #92).
 
         Args:
             value (int): Value for destination selection (0 = LF01 Rate, 18 = VCA Level, 37 = OSC1 Wave, 55 = OSC1 + OSC2 Wave, 73 = OSC2 Wave, 91 = Noise Level, 110 = EG Time/PGM).
