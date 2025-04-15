@@ -7,7 +7,7 @@ from mcp.server.fastmcp import FastMCP
 from moog_sub37_mcp.midi.midi_manager import MIDIManager
 
 
-def register_osc_tools(mcp: FastMCP, midi: MIDIManager):
+def register_osc_tools(mcp: FastMCP, midi: MIDIManager):  # noqa: C901
     """
     Register all oscillator and Mod 2 tools with the MCP server.
 
