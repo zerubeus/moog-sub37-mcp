@@ -18,11 +18,11 @@ The Moog Sub37/Subsequent37 is a powerful analog synthesizer featuring:
 # Prompt Examples
 
 ```
-"Design a deep, resonant bass patch using the Moog filter's self-oscillation"
-"Create an evolving pad sound using both oscillators in Duo mode"
-"Program a sequence that showcases the Sub37's classic Moog lead sound"
-"Design a dark atmospheric sound using the Sub37's modulation capabilities"
-"Create a punchy bass sound perfect for techno using the multidrive circuit"
+"Design a deep, resonant bass patch using the Moog filter's self-oscillation on midi channel 3"
+"Create an evolving pad sound using both oscillators in Duo mode on midi channel 3"
+"Program a sequence that showcases the Sub37's classic Moog lead sound on midi channel 3"
+"Design a dark atmospheric sound using the Sub37's modulation capabilities on midi channel 3"
+"Create a punchy bass sound perfect for techno using the multidrive circuit on midi channel 3"
 ```
 
 ## Features
