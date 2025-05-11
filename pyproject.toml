@@ -25,15 +25,15 @@ dependencies = [
     "mcp[cli]>=1.5.0",
 ]
 
+[dependency-groups]
+dev = ["black>=25.1.0", "colorlog>=6.9.0", "pyright>=1.1.390", "ruff>=0.6.9"]
+
 [project.scripts]
 moog-sub37-mcp = "moog_sub37_mcp.main:main"
 
 [project.urls]
 "Homepage" = "https://github.com/zerubeus/moog-sub37-mcp"
 "Bug Tracker" = "https://github.com/zerubeus/moog-sub37-mcp/issues"
-
-[dependency-groups]
-dev = ["black>=25.1.0", "colorlog>=6.9.0", "pyright>=1.1.390", "ruff>=0.6.9"]
 
 [tool.ruff]
 line-length = 120
